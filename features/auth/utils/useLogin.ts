@@ -160,6 +160,7 @@ export default function useLogin() {
     }) => {
       try {
         setIsFetching(true);
+        resetPolling();
 
         const createUserResponse = await fetch("/api/create-user", {
           method: "POST",
@@ -177,6 +178,7 @@ export default function useLogin() {
 
         if (!createUserResponse.ok) {
           setIsError(createUserResponse.statusText);
+          setGetUrl(true);
           console.log(createUserResponse.statusText);
           setIsFetching(false);
           return;
@@ -185,7 +187,6 @@ export default function useLogin() {
         const { user } = await createUserResponse.json();
 
         dispatch(setUser(user));
-        resetPolling();
         setIsFarcasterModal(false);
         toast.success("Account created successfully");
         router.push("/dashboard");
