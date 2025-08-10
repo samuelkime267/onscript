@@ -28,6 +28,7 @@ import QRCode from "react-qr-code";
 import ButtonAction from "@/components/ButtonAction";
 import Loader from "@/components/Loader";
 import useLogin from "@/features/auth/utils/useLogin";
+import sdk from "@farcaster/miniapp-sdk";
 
 export default function LoginPage() {
   const {
@@ -128,7 +129,9 @@ export default function LoginPage() {
               <button
                 className="w-full bg-black hover:bg-black/80 text-white py-2 px-4 rounded-lg capitalize"
                 onClick={() => {
-                  window.open(farcasterConnectUrl, "_blank");
+                  if (farcasterConnectUrl.length > 0)
+                    sdk.actions.openUrl(farcasterConnectUrl);
+                  // window.open(farcasterConnectUrl, "_blank");
                 }}
               >
                 {"I'm on my phone"}
