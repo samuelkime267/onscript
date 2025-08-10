@@ -19,11 +19,29 @@ export async function POST(request: Request) {
     const { address, displayName, fid, pfpUrl, username } = parsedData.data;
 
     const existingUser = await getUserByAddress(address);
+    const existingUserViaFid = await db.user.findUnique({
+      where: { fid },
+    });
+    const existingUserViaUsername = await db.user.findUnique({
+      where: { username },
+    });
 
     if (existingUser) {
       return NextResponse.json(
-        { error: "User already exists" },
-        { status: 400 },
+        { error: "User with this address already exist" },
+        { status: 400, statusText: "User with this address already exist" },
+      );
+    }
+    if (existingUserViaFid) {
+      return NextResponse.json(
+        { error: "User with this FID already exist" },
+        { status: 400, statusText: "User with this FID already exist" },
+      );
+    }
+    if (existingUserViaUsername) {
+      return NextResponse.json(
+        { error: "User with this username already exist" },
+        { status: 400, statusText: "User with this username already exist" },
       );
     }
 
