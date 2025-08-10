@@ -7,7 +7,7 @@ export function MiniAppDashboard() {
     <>
       <Navbar />
       <div className="max-w-xl w-full min-h-screen bg-white p-4 mx-auto">
-        <p>Dashboard content</p>
+        <p>Dashboard contents</p>
       </div>
     </>
   );
