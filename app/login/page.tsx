@@ -59,6 +59,17 @@ export default function LoginPage() {
         </CardHeader>
 
         <CardContent className="space-y-6">
+          <div>
+            {isError && <p className="text-red-800 text-center">{isError}</p>}
+            {retry && (
+              <ButtonAction
+                btnType="primary"
+                onClick={() => setStartRetry(true)}
+              >
+                Retry
+              </ButtonAction>
+            )}
+          </div>
           <p>To continue connect wallet and link your Farcaster account</p>
           <div className="space-y-4">
             <Wallet className="!w-full">
@@ -93,11 +104,13 @@ export default function LoginPage() {
 
       <Dialog open={isFarcasterModal} onOpenChange={setIsFarcasterModal}>
         <DialogContent className="max-w-[calc(100vw-2rem)] rounded-lg">
-          {farcasterConnectUrl && (
-            <DialogTitle className="text-black text-center">
-              Connect Farcaster
-            </DialogTitle>
-          )}
+          <DialogTitle
+            className={cn("text-black text-center", {
+              hidden: !farcasterConnectUrl,
+            })}
+          >
+            Connect Farcaster
+          </DialogTitle>
 
           {isError && <p className="text-red-800 text-center">{isError}</p>}
           {retry && (

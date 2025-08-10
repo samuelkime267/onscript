@@ -54,7 +54,7 @@ export default function useLogin() {
 
         setRetry("getUser");
         setIsError("Something went wrong");
-        console.error(response.statusText);
+        console.log(response.statusText);
         return;
       }
 
@@ -108,7 +108,7 @@ export default function useLogin() {
 
       if (!response.ok) {
         setIsError("Something went wrong");
-        console.error(response.statusText);
+        console.log(response.statusText);
         return;
       }
 
@@ -122,7 +122,7 @@ export default function useLogin() {
       console.log("data", { connectUri, nonce, channelToken });
       setGetUrl(false);
     } catch (error) {
-      console.error("Error fetching Farcaster URL:", error);
+      console.log("Error fetching Farcaster URL:", error);
       setIsError("Unable to get Farcaster URL");
     } finally {
       setIsFetching(false);
@@ -177,7 +177,7 @@ export default function useLogin() {
 
         if (!createUserResponse.ok) {
           setIsError(createUserResponse.statusText);
-          console.error(createUserResponse.statusText);
+          console.log(createUserResponse.statusText);
           setIsFetching(false);
           return;
         }
@@ -190,7 +190,7 @@ export default function useLogin() {
         toast.success("Account created successfully");
         router.push("/dashboard");
       } catch (err) {
-        console.error("Error creating user:", err);
+        console.log("Error creating user:", err);
         setIsError("Failed to create user");
       } finally {
         setIsFetching(false);
@@ -234,7 +234,7 @@ export default function useLogin() {
           return;
         }
         setIsError("Something went wrong");
-        console.error(response.statusText, { channelToken, nonce });
+        console.log(response.statusText, { channelToken, nonce });
         setIsPolling(false);
         return;
       }
@@ -248,7 +248,7 @@ export default function useLogin() {
 
       createUser({ displayName, fid, pfpUrl, username });
     } catch (error) {
-      console.error("Polling error:", error);
+      console.log("Polling error:", error);
       setIsError("Something went wrong while polling");
       setIsPolling(false);
     }
