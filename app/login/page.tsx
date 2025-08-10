@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useAccount } from "wagmi";
 import {
   Card,
@@ -29,6 +29,7 @@ import ButtonAction from "@/components/ButtonAction";
 import Loader from "@/components/Loader";
 import useLogin from "@/features/auth/utils/useLogin";
 import sdk from "@farcaster/miniapp-sdk";
+import { useAuthenticate } from "@coinbase/onchainkit/minikit";
 
 export default function LoginPage() {
   const {
@@ -42,9 +43,22 @@ export default function LoginPage() {
     setStartRetry,
   } = useLogin();
   const { address } = useAccount();
+  const { signIn } = useAuthenticate();
+  const [result, setResult] = useState({});
+  const handleSignIn = async () => {
+    const result = await signIn();
+    console.log("result:", result);
+
+    if (result) {
+      setResult(result);
+      // Handle successful authentication
+      console.log("Authenticated:", result);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white px-4">
+      <pre className="text-black">{JSON.stringify(result)}</pre>
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex items-center justify-center w-16 h-16 bg-black rounded-2xl mb-4 mx-auto">
@@ -90,7 +104,8 @@ export default function LoginPage() {
             {userFound === false && (
               <ButtonAction
                 disabled={!address}
-                onClick={() => setIsFarcasterModal(true)}
+                // onClick={() => setIsFarcasterModal(true)}
+                onClick={() => handleSignIn()}
                 btnType="primary"
                 className={cn({ hidden: !address })}
               >
