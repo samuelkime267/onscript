@@ -32,8 +32,8 @@ model User {
   walletAddress String   @unique
   fid           Int      @unique
   username      String   @unique
-  displayName   String
-  pfpUrl        String
+  displayName   String?
+  pfpUrl        String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 

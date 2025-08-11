@@ -17,3 +17,12 @@ export const getUserById = async (id: string) => {
   });
   return user;
 };
+
+export const getUserByFid = async (fid: number) => {
+  const user = await db.user.findUnique({
+    where: {
+      fid,
+    },
+  });
+  return user;
+};

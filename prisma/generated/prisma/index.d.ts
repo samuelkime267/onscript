@@ -3321,8 +3321,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName: string | null
+    pfpUrl: string | null
     createdAt: Date
     updatedAt: Date
     isPremium: boolean
@@ -3479,8 +3479,8 @@ export namespace Prisma {
       walletAddress: string
       fid: number
       username: string
-      displayName: string
-      pfpUrl: string
+      displayName: string | null
+      pfpUrl: string | null
       createdAt: Date
       updatedAt: Date
       isPremium: boolean
@@ -14742,8 +14742,8 @@ export namespace Prisma {
     walletAddress?: StringFilter<"User"> | string
     fid?: IntFilter<"User"> | number
     username?: StringFilter<"User"> | string
-    displayName?: StringFilter<"User"> | string
-    pfpUrl?: StringFilter<"User"> | string
+    displayName?: StringNullableFilter<"User"> | string | null
+    pfpUrl?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     isPremium?: BoolFilter<"User"> | boolean
@@ -14771,8 +14771,8 @@ export namespace Prisma {
     walletAddress?: SortOrder
     fid?: SortOrder
     username?: SortOrder
-    displayName?: SortOrder
-    pfpUrl?: SortOrder
+    displayName?: SortOrderInput | SortOrder
+    pfpUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPremium?: SortOrder
@@ -14803,8 +14803,8 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    displayName?: StringFilter<"User"> | string
-    pfpUrl?: StringFilter<"User"> | string
+    displayName?: StringNullableFilter<"User"> | string | null
+    pfpUrl?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     isPremium?: BoolFilter<"User"> | boolean
@@ -14832,8 +14832,8 @@ export namespace Prisma {
     walletAddress?: SortOrder
     fid?: SortOrder
     username?: SortOrder
-    displayName?: SortOrder
-    pfpUrl?: SortOrder
+    displayName?: SortOrderInput | SortOrder
+    pfpUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPremium?: SortOrder
@@ -14860,8 +14860,8 @@ export namespace Prisma {
     walletAddress?: StringWithAggregatesFilter<"User"> | string
     fid?: IntWithAggregatesFilter<"User"> | number
     username?: StringWithAggregatesFilter<"User"> | string
-    displayName?: StringWithAggregatesFilter<"User"> | string
-    pfpUrl?: StringWithAggregatesFilter<"User"> | string
+    displayName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    pfpUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     isPremium?: BoolWithAggregatesFilter<"User"> | boolean
@@ -15753,8 +15753,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -15782,8 +15782,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -15811,8 +15811,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -15840,8 +15840,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -15869,8 +15869,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -15889,8 +15889,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -15909,8 +15909,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -16948,6 +16948,21 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -16962,21 +16977,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type PostListRelationFilter = {
@@ -17164,6 +17164,24 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
@@ -17184,24 +17202,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type AutomationRuleCountOrderByAggregateInput = {
@@ -18029,16 +18029,16 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type PostUpdateManyWithoutUserNestedInput = {
@@ -18755,6 +18755,20 @@ export namespace Prisma {
     _max?: NestedEnumPostStatusFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -18769,20 +18783,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -18812,6 +18812,34 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
@@ -18832,34 +18860,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumCampaignFrequencyFilter<$PrismaModel = never> = {
@@ -19067,8 +19067,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -19095,8 +19095,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -19139,8 +19139,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -19167,8 +19167,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -19863,8 +19863,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -19891,8 +19891,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -19935,8 +19935,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -19963,8 +19963,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -19991,8 +19991,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -20019,8 +20019,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -20063,8 +20063,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -20091,8 +20091,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -20119,8 +20119,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -20147,8 +20147,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -20354,8 +20354,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -20382,8 +20382,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -20556,8 +20556,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -20584,8 +20584,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -20687,8 +20687,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -20715,8 +20715,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -20796,8 +20796,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -20824,8 +20824,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -20927,8 +20927,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -20955,8 +20955,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -21036,8 +21036,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -21064,8 +21064,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -21167,8 +21167,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -21195,8 +21195,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -21276,8 +21276,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -21304,8 +21304,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -21407,8 +21407,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -21435,8 +21435,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -21463,8 +21463,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -21491,8 +21491,8 @@ export namespace Prisma {
     walletAddress: string
     fid: number
     username: string
-    displayName: string
-    pfpUrl: string
+    displayName?: string | null
+    pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isPremium?: boolean
@@ -21535,8 +21535,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
@@ -21563,8 +21563,8 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     fid?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    pfpUrl?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
