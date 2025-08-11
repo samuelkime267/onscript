@@ -13,6 +13,11 @@ const nextConfig = {
         hostname: "imagedelivery.net",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "tba-mobile.mypinata.cloud",
+        pathname: "/**",
+      },
     ],
   },
 };
