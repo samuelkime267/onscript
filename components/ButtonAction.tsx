@@ -11,7 +11,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const btnVariants = {
   primary:
-    "w-full bg-black hover:bg-black/80 text-white py-2 px-4 rounded-lg capitalize",
+    "w-full bg-black hover:bg-black/80 font-medium font-geist text-white py-3.5 px-4 rounded-lg capitalize",
 };
 
 export default function ButtonAction({

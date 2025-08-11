@@ -48,17 +48,18 @@ export default function LoginPage() {
         </CardHeader>
 
         <CardContent className="space-y-6">
-          <div>
-            {isError && <p className="text-red-800 text-center">{isError}</p>}
-          </div>
-          <p className="capitalize">
-            Connect wallet and Farcaster account to continue{" "}
+          {isError && <p className="text-red-800 text-center">{isError}</p>}
+          <p className="capitalize text-center">
+            Connect wallet and Farcaster account to continue
           </p>
           <div className="space-y-4">
             <Wallet className="!w-full">
-              <ConnectWallet className="!w-full bg-black hover:bg-black/80 text-white" />
+              <ConnectWallet className="!w-full bg-black hover:bg-black/80 !text-white">
+                <Avatar className="h-6 w-6 hidden" />
+                <Name className="text-white" />
+              </ConnectWallet>
 
-              <WalletDropdown className="!bg-red-900">
+              <WalletDropdown>
                 <Identity className="px-4 pt-3 pb-2" hasCopyAddressOnClick>
                   <Avatar />
                   <Name />
