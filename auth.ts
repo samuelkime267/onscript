@@ -28,7 +28,7 @@ declare module "next-auth/jwt" {
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
-    error: "/login",
+    error: "/error",
     signIn: "/login",
   },
   callbacks: {

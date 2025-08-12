@@ -29,7 +29,7 @@ export default function Onboarding() {
           </p>
 
           {/* Feature Cards */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 gap-6 mb-12 max-w-4xl mx-auto">
             <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
               <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">🛡️</span>

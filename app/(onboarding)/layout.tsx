@@ -4,7 +4,6 @@ import { viewport } from "@/data/viewport.data";
 import { fonts } from "@/data/fonts.data";
 import "@coinbase/onchainkit/styles.css";
 import "@/styles/globals.css";
-import Navbar from "@/components/Navbar";
 
 export { generateMetadata, viewport };
 
@@ -15,10 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`bg-neutral-100 ${fonts}`}>
+      <body className={`bg-white ${fonts}`}>
         <Providers>
-          <Navbar />
-          {children}
+          <div className="max-w-xl mx-auto">{children}</div>
         </Providers>
       </body>
     </html>

@@ -21,7 +21,7 @@ import Loader from "@/components/Loader";
 import useLogin from "@/features/auth/utils/useLogin";
 
 export default function Login() {
-  const { isError, isFetching, handleSignIn, mockSignIn } = useLogin();
+  const { isError, isFetching, handleSignIn } = useLogin();
   const { address } = useAccount();
 
   return (
@@ -32,8 +32,8 @@ export default function Login() {
           Connect wallet and Farcaster account to continue
         </p>
         <div className="w-full grid grid-cols-1 gap-4">
-          <Wallet className="!min-w-full !w-full border border-red-900">
-            <ConnectWallet className="!min-w-full !w-full bg-black hover:bg-black/80 !text-white">
+          <Wallet className="!min-w-full min-w-full !w-full w-full border border-red-900">
+            <ConnectWallet className="!min-w-full !w-full w-full min-w-full bg-black hover:bg-black/80 !text-white">
               <Avatar className="h-6 w-6 hidden" />
               <Name className="text-white" />
             </ConnectWallet>
@@ -52,8 +52,8 @@ export default function Login() {
           {address && (
             <ButtonAction
               disabled={!address}
-              onClick={mockSignIn}
-              // onClick={handleSignIn}
+              // onClick={mockSignIn}
+              onClick={handleSignIn}
               btnType="primary"
               className={cn({ hidden: !address })}
             >

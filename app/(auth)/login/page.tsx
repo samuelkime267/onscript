@@ -11,8 +11,8 @@ import { Login } from "@/features/auth/components";
 
 export default function LoginPage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white px-4">
-      <Card className="w-full max-w-md">
+    <div className="flex flex-col items-center justify-center min-h-screen px-4">
+      <Card className="w-full">
         <CardHeader className="text-center">
           <div className="flex items-center justify-center w-16 h-16 bg-black rounded-2xl mb-4 mx-auto">
             <Zap className="w-8 h-8 text-white" />
