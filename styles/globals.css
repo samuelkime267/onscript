@@ -6,7 +6,7 @@
 @tailwind utilities;
 
 body {
-  font-family: "Geist", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -71,9 +71,15 @@ body {
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border font-poppins;
   }
   body {
     @apply bg-background text-foreground;
+  }
+  p,
+  a,
+  span,
+  li {
+    @apply text-black;
   }
 }

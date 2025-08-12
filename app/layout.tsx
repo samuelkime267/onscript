@@ -1,9 +1,10 @@
 import Providers from "@/components/Providers";
 import { generateMetadata } from "@/data/generateMetadata.data";
 import { viewport } from "@/data/viewport.data";
-
+import { fonts } from "@/data/fonts.data";
 import "@coinbase/onchainkit/styles.css";
 import "@/styles/globals.css";
+import Navbar from "@/components/Navbar";
 
 export { generateMetadata, viewport };
 
@@ -14,8 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-background">
-        <Providers>{children}</Providers>
+      <body className={`bg-neutral-100 ${fonts}`}>
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );
