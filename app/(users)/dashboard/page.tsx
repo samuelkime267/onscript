@@ -1,7 +1,11 @@
 import { auth } from "@/auth";
 import ButtonAction from "@/components/ButtonAction";
-import { RequestSignature } from "@/features/auth/components";
-import { Archive, CalendarClock, LucideSend, Plus } from "lucide-react";
+import StatusCard from "@/components/StatusCard";
+import { scheduledCasts } from "@/data/casts.data";
+import CastCard from "@/features/cast/components/CastCard";
+import ScheduleCastNow from "@/features/cast/components/ScheduleCastNow";
+import { Archive, CalendarClock, LucideSend } from "lucide-react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 import { TbSpeakerphone } from "react-icons/tb";
@@ -10,7 +14,7 @@ export default async function Dashboard() {
   const session = await auth();
   if (!session) redirect("/login");
 
-  const { name } = session.user;
+  const { name, image } = session.user;
 
   // const mockUserData = {
   //   address: "0x3097139c11366006F73Fd357c1F2489d8CF3B96A",
@@ -21,7 +25,10 @@ export default async function Dashboard() {
   //   name: "wahaladev.base.eth",
   // };
 
-  // const { name } = mockUserData;
+  // const { name, image } = mockUserData;
+
+  // const pendingCastsShown = 3;
+  // const pendingCasts = scheduledCasts.slice(0, pendingCastsShown);
 
   return (
     <main className="text-black p-4 bg-neutral-100 min-h-screen flex items-start justify-start flex-col w-full gap-4">
@@ -29,77 +36,40 @@ export default async function Dashboard() {
         Welcome, {name}
       </h1>
 
-      <div className="w-full grid grid-cols-2 gap-2">
-        <div className="bg-white p-4 rounded-3xl flex items-start justify-start gap-12 flex-col shadow-xl shadow-black/[0.05]">
-          <div className="border border-neutral-100 p-2 rounded-full">
-            <LucideSend className="size-6" />
-          </div>
-          <div>
-            <p className="text-2xl font-medium">{10}</p>
-            <p>Sent casts</p>
-          </div>
-        </div>
+      <section className="w-full grid grid-cols-2 gap-4">
+        <StatusCard Icon={LucideSend} value={10} text="Sent casts" />
+        <StatusCard Icon={CalendarClock} value={10} text="Queued casts" />
+        <StatusCard Icon={TbSpeakerphone} value={2} text="Active campaign" />
+        <StatusCard Icon={Archive} value={26} text="Drafts" />
+      </section>
 
-        <div className="bg-white p-4 rounded-3xl flex items-start justify-start gap-12 flex-col shadow-xl shadow-black/[0.05]">
-          <div className="border border-neutral-100 p-2 rounded-full">
-            <CalendarClock className="size-6" />
-          </div>
-          <div>
-            <p className="text-2xl font-medium">{10}</p>
-            <p>Queued casts</p>
-          </div>
-        </div>
+      <ScheduleCastNow />
 
-        <div className="bg-white p-4 rounded-3xl flex items-start justify-start gap-12 flex-col shadow-xl shadow-black/[0.05]">
-          <div className="border border-neutral-100 p-2 rounded-full">
-            <TbSpeakerphone className="size-6" />
-          </div>
-          <div>
-            <p className="text-2xl font-medium">{2}</p>
-            <p>Active campaign</p>
-          </div>
-        </div>
-
-        <div className="bg-white p-4 rounded-3xl flex items-start justify-start gap-12 flex-col shadow-xl shadow-black/[0.05]">
-          <div className="border border-neutral-100 p-2 rounded-full">
-            <Archive className="size-6" />
-          </div>
-          <div>
-            <p className="text-2xl font-medium">{4}</p>
-            <p>Drafts</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="w-full bg-white p-4 rounded-3xl flex items-center justify-center gap-4 flex-col shadow-xl shadow-black/[0.05]">
-        <div className="border border-neutral-100 p-2 rounded-full">
-          <CalendarClock className="size-8" />
-        </div>
-        <div>
-          <h4 className="text-lg font-medium text-center">
-            Schedule a cast now
-          </h4>
-          <p className="text-center text-neutral-700">
-            Keep your content flowing
-          </p>
-        </div>
-        <ButtonAction
-          btnType="primary"
-          className="flex items-center justify-center gap-2 w-fit px-8"
-        >
-          <Plus className="size-4 text-white" />
-          <p className="text-white">New Cast</p>
-        </ButtonAction>
-      </div>
-
-      <div className="w-full bg-white p-4 rounded-3xl flex items-center justify-center gap-4 flex-col shadow-xl shadow-black/[0.05]">
-        <h3 className="font-medium text-xl capitalize text-left w-full">
-          Pending casts
+      <section className="w-full bg-white rounded-3xl flex items-center justify-center flex-col shadow-xl shadow-black/[0.05]">
+        <h3 className="font-medium text-xl capitalize text-left w-full p-4 pb-0">
+          Scheduled casts
         </h3>
-      </div>
 
-      <p>upgrade to premium</p>
-      <RequestSignature />
+        <div className="grid grid-cols-1 divide-y divide-neutral-100">
+          {scheduledCasts.map((cast, i) => {
+            return (
+              <CastCard key={i} {...cast} username={name} profilePic={image} />
+            );
+          })}
+        </div>
+
+        <div className="px-4 pb-4">
+          <Link href={"/"}>
+            <ButtonAction btnType="primary" className="w-fit px-8">
+              See all
+            </ButtonAction>
+          </Link>
+        </div>
+      </section>
+
+      <div>
+        <p className="h-fit">upgrade to premium</p>
+      </div>
     </main>
   );
 }

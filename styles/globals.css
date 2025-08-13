@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 @import "./theme.css";
+@import "swiper/css";
 
 @tailwind base;
 @tailwind components;
@@ -82,4 +83,8 @@ body {
   li {
     @apply text-black;
   }
+}
+
+button {
+  @apply outline-none ring-0;
 }

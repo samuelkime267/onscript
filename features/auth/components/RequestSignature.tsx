@@ -51,7 +51,7 @@ export default function RequestSignature() {
   if (initiateSignerErr) return <div>{initiateSignerErr}</div>;
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-8">
+    <div className="flex flex-col items-center justify-center gap-8">
       {deeplinkUrl && (
         <div className="flex items-center justify-center flex-col gap-4">
           <QRCode value={deeplinkUrl} />

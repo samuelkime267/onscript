@@ -25,7 +25,7 @@ export default async function Navbar() {
   // const { isPremium, image, name } = mockUserData;
 
   return (
-    <header className="sticky top-0 left-0 shadow-xl shadow-black/[0.05] w-[calc(100%-2rem)] mx-auto rounded-3xl flex items-center justify-between gap-2 z-50 p-4 bg-white mt-4">
+    <header className="sticky top-0 left-0 shadow-xl shadow-black/[0.05] w-[calc(100%-2rem)] mx-auto rounded-b-3xl flex items-center justify-between gap-2 z-50 p-4 bg-white mt-0">
       <Link href={"/"}>
         <Logo />
       </Link>
@@ -35,7 +35,7 @@ export default async function Navbar() {
           <div className="size-8 rounded-full overflow-hidden bg-gray-200">
             {image && (
               <Image
-                src={image || ""}
+                src={image}
                 alt={name || ""}
                 width={40}
                 height={40}
