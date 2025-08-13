@@ -1,3 +1,5 @@
+// export default function auth() {}
+
 import authConfig from "./auth.config";
 import NextAuth from "next-auth";
 import {

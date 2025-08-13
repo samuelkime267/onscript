@@ -28,11 +28,12 @@ export default function Login() {
     <Fragment>
       <CardContent className="flex flex-col gap-6">
         {isError && <p className="text-red-800 text-center">{isError}</p>}
+
         <p className="capitalize text-center">
           Connect wallet and Farcaster account to continue
         </p>
         <div className="w-full grid grid-cols-1 gap-4">
-          <Wallet className="!min-w-full min-w-full !w-full w-full border border-red-900">
+          <Wallet className="!min-w-full min-w-full !w-full w-full">
             <ConnectWallet className="!min-w-full !w-full w-full min-w-full bg-black hover:bg-black/80 !text-white">
               <Avatar className="h-6 w-6 hidden" />
               <Name className="text-white" />
