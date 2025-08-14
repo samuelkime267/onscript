@@ -15,7 +15,7 @@ const btnVariants = {
   secondary:
     "w-full bg-neutral-300 hover:bg-neutral-300/80 font-medium text-black py-3.5 px-4 rounded-lg capitalize",
   badge:
-    "rounded-lg border border-neutral-300 py-2 px-3 text-[0.625rem] font-medium hover:bg-neutral-50",
+    "rounded-lg border border-neutral-300 py-2 px-3 text-[0.625rem] font-medium hover:bg-neutral-50 text-black",
 };
 
 export default function ButtonAction({

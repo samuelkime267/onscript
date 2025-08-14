@@ -3,13 +3,7 @@ import img2 from "@/assets/imgs/img-2.png";
 import img3 from "@/assets/imgs/img-3.png";
 import img4 from "@/assets/imgs/img-4.png";
 import fashionImg from "@/assets/imgs/fashion.jpg";
-
-// Helper to get a date X days from today
-function daysFromNow(days: number) {
-  const date = new Date();
-  date.setDate(date.getDate() + days);
-  return date;
-}
+import { daysFromNow } from "@/utils";
 
 export const scheduledCasts = [
   {
