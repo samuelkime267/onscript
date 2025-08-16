@@ -41,12 +41,12 @@ export default {
           const user = await getUserByAddress(address);
           if (!user) return null;
 
-          return {
-            address,
-            id: user.id,
-            image: user.pfpUrl,
-            name: user.username,
-          };
+          // return {
+          //   address,
+          //   id: user.id,
+          //   image: user.pfpUrl,
+          //   name: user.username,
+          // };
 
           //This giving me issues because of the tunneling so for now we'll just keep building
 
