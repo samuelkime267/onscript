@@ -66,6 +66,7 @@ export default async function joinCampaignAction(data: unknown) {
           | "NO"
           | "KINDA",
         xHandle: twitter,
+        isApproved: false,
       },
     });
 

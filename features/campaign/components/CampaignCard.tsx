@@ -1,19 +1,9 @@
 import ButtonAction from "@/components/ButtonAction";
+import { Campaign } from "@/data/campaigns.data";
 import { formatScheduleDate } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
-type CampaignCardProps = {
-  id: number;
-  name: string;
-  description: string;
-  endDate: Date;
-  isOpen: boolean;
-  images: string[];
-  creatorImg: string;
-  createdBy: string;
-};
 
 export default function CampaignCard({
   id,
@@ -21,10 +11,10 @@ export default function CampaignCard({
   description,
   endDate,
   isOpen,
-  images,
+  image,
   creatorImg,
   createdBy,
-}: CampaignCardProps) {
+}: Campaign) {
   return (
     <Link
       href={`/campaigns/${id}`}
@@ -32,7 +22,7 @@ export default function CampaignCard({
     >
       <div className="w-full h-full">
         <Image
-          src={images[0]}
+          src={image}
           alt={name}
           width={450}
           height={450}

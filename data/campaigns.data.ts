@@ -1,12 +1,31 @@
-import cinemaImg from "@/assets/imgs/cinema.jpg";
+import cinemaImg from "@/assets/imgs/cinematic-streak.jpg";
 const baseDate = new Date("2025-08-16T12:00:00");
-const campaigns = [
+
+export type Campaign = {
+  id: number;
+  name: string;
+  description: string;
+  category: string;
+  image: string;
+  startDate: Date;
+  endDate: Date;
+  frequency: string;
+  minStreakLength: number;
+  contentRequirements: string;
+  rewards: string;
+  prizePool: number;
+  isOpen: boolean;
+  createdBy: string;
+  creatorImg: string;
+};
+
+const campaigns: Campaign[] = [
   {
     id: 1,
     name: "Cinematic streak",
-    description: "A creator first web3.",
+    description: "A creator first Web3 Experience",
     category: "Onscript",
-    images: [cinemaImg.src],
+    image: cinemaImg.src,
     startDate: baseDate,
     endDate: new Date(baseDate.getTime() + 7 * 24 * 60 * 60 * 1000),
     frequency: "Daily",

@@ -51,6 +51,24 @@ export default function useLogin() {
     setIsFetching(true);
     setIsError(undefined);
 
+    // // remove this in live
+    // const mockUserData = {
+    //   address: "0x3097139c11366006F73Fd357c1F2489d8CF3B96A",
+    //   fid: 1175517,
+    //   id: "cme6dktp90000ky044dw45lo5",
+    //   image:
+    //     "https://tba-mobile.mypinata.cloud/ipfs/QmeMpPVcM5Ex4EKuih8oUBMxzhbBNA2MBxQFL54KAL5JDs?pinataGatewayToken=3nq0UVhtd3rYmgYDdb1I9qv7rHsw-_DzwdWkZPRQ-QW1avFI9dCS8knaSfq_R5_q",
+    //   name: "wahaladev.base.eth",
+    //   nonce:
+    //     "0x356c632d858cdaac2b608320dc0fd7ba0c1f9ad043725166e451e3a56e939da1c8c161f098e20e463a567ae9ea3a8451b",
+    //   signature:
+    //     "0x356c632d858cdaac2b608320dc0fd7ba0c1f9ad043725166e451e3a56e939da1c8c161f098e20e463a567ae9ea3a8451b",
+    // };
+    // await signIn("credentials", {
+    //   ...mockUserData,
+    //   redirectTo: defaultRedirectUrl,
+    // });
+
     try {
       const response = await fetch(`/api/user?address=${address}`);
       if (response.ok) {

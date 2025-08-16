@@ -6,11 +6,19 @@ import Input from "@/components/Input";
 import { JoinCampaignFormDataType } from "../schemas";
 import { joinCampaignAction } from "../actions";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-export default function JoinCampaignForm() {
+type JoinCampaignFormProps = {
+  setJoinedStreak: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function JoinCampaignForm({
+  setJoinedStreak,
+}: JoinCampaignFormProps) {
   const [isPending, startTransition] = useTransition();
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState<string>();
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,6 +54,8 @@ export default function JoinCampaignForm() {
       if (res.success) {
         toast("Form submitted");
         setIsSuccess(true);
+        setJoinedStreak(true);
+        router.refresh();
       }
     });
   };

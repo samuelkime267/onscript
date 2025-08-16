@@ -8394,6 +8394,7 @@ export namespace Prisma {
     helpNeeded: string | null
     storyTellingVibe: string | null
     userId: string | null
+    isApproved: boolean | null
   }
 
   export type LaunchCampaignParticipantsMaxAggregateOutputType = {
@@ -8407,6 +8408,7 @@ export namespace Prisma {
     helpNeeded: string | null
     storyTellingVibe: string | null
     userId: string | null
+    isApproved: boolean | null
   }
 
   export type LaunchCampaignParticipantsCountAggregateOutputType = {
@@ -8420,6 +8422,7 @@ export namespace Prisma {
     helpNeeded: number
     storyTellingVibe: number
     userId: number
+    isApproved: number
     _all: number
   }
 
@@ -8443,6 +8446,7 @@ export namespace Prisma {
     helpNeeded?: true
     storyTellingVibe?: true
     userId?: true
+    isApproved?: true
   }
 
   export type LaunchCampaignParticipantsMaxAggregateInputType = {
@@ -8456,6 +8460,7 @@ export namespace Prisma {
     helpNeeded?: true
     storyTellingVibe?: true
     userId?: true
+    isApproved?: true
   }
 
   export type LaunchCampaignParticipantsCountAggregateInputType = {
@@ -8469,6 +8474,7 @@ export namespace Prisma {
     helpNeeded?: true
     storyTellingVibe?: true
     userId?: true
+    isApproved?: true
     _all?: true
   }
 
@@ -8569,6 +8575,7 @@ export namespace Prisma {
     helpNeeded: string | null
     storyTellingVibe: string
     userId: string
+    isApproved: boolean | null
     _count: LaunchCampaignParticipantsCountAggregateOutputType | null
     _avg: LaunchCampaignParticipantsAvgAggregateOutputType | null
     _sum: LaunchCampaignParticipantsSumAggregateOutputType | null
@@ -8601,6 +8608,7 @@ export namespace Prisma {
     helpNeeded?: boolean
     storyTellingVibe?: boolean
     userId?: boolean
+    isApproved?: boolean
   }, ExtArgs["result"]["launchCampaignParticipants"]>
 
   export type LaunchCampaignParticipantsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8614,6 +8622,7 @@ export namespace Prisma {
     helpNeeded?: boolean
     storyTellingVibe?: boolean
     userId?: boolean
+    isApproved?: boolean
   }, ExtArgs["result"]["launchCampaignParticipants"]>
 
   export type LaunchCampaignParticipantsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8627,6 +8636,7 @@ export namespace Prisma {
     helpNeeded?: boolean
     storyTellingVibe?: boolean
     userId?: boolean
+    isApproved?: boolean
   }, ExtArgs["result"]["launchCampaignParticipants"]>
 
   export type LaunchCampaignParticipantsSelectScalar = {
@@ -8640,9 +8650,10 @@ export namespace Prisma {
     helpNeeded?: boolean
     storyTellingVibe?: boolean
     userId?: boolean
+    isApproved?: boolean
   }
 
-  export type LaunchCampaignParticipantsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fid" | "username" | "email" | "xHandle" | "web3ContentWork" | "commitment" | "helpNeeded" | "storyTellingVibe" | "userId", ExtArgs["result"]["launchCampaignParticipants"]>
+  export type LaunchCampaignParticipantsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fid" | "username" | "email" | "xHandle" | "web3ContentWork" | "commitment" | "helpNeeded" | "storyTellingVibe" | "userId" | "isApproved", ExtArgs["result"]["launchCampaignParticipants"]>
 
   export type $LaunchCampaignParticipantsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "LaunchCampaignParticipants"
@@ -8658,6 +8669,7 @@ export namespace Prisma {
       helpNeeded: string | null
       storyTellingVibe: string
       userId: string
+      isApproved: boolean | null
     }, ExtArgs["result"]["launchCampaignParticipants"]>
     composites: {}
   }
@@ -9091,6 +9103,7 @@ export namespace Prisma {
     readonly helpNeeded: FieldRef<"LaunchCampaignParticipants", 'String'>
     readonly storyTellingVibe: FieldRef<"LaunchCampaignParticipants", 'String'>
     readonly userId: FieldRef<"LaunchCampaignParticipants", 'String'>
+    readonly isApproved: FieldRef<"LaunchCampaignParticipants", 'Boolean'>
   }
     
 
@@ -15647,7 +15660,8 @@ export namespace Prisma {
     commitment: 'commitment',
     helpNeeded: 'helpNeeded',
     storyTellingVibe: 'storyTellingVibe',
-    userId: 'userId'
+    userId: 'userId',
+    isApproved: 'isApproved'
   };
 
   export type LaunchCampaignParticipantsScalarFieldEnum = (typeof LaunchCampaignParticipantsScalarFieldEnum)[keyof typeof LaunchCampaignParticipantsScalarFieldEnum]
@@ -16533,6 +16547,7 @@ export namespace Prisma {
     helpNeeded?: StringNullableFilter<"LaunchCampaignParticipants"> | string | null
     storyTellingVibe?: StringFilter<"LaunchCampaignParticipants"> | string
     userId?: StringFilter<"LaunchCampaignParticipants"> | string
+    isApproved?: BoolNullableFilter<"LaunchCampaignParticipants"> | boolean | null
   }
 
   export type LaunchCampaignParticipantsOrderByWithRelationInput = {
@@ -16546,6 +16561,7 @@ export namespace Prisma {
     helpNeeded?: SortOrderInput | SortOrder
     storyTellingVibe?: SortOrder
     userId?: SortOrder
+    isApproved?: SortOrderInput | SortOrder
   }
 
   export type LaunchCampaignParticipantsWhereUniqueInput = Prisma.AtLeast<{
@@ -16554,6 +16570,7 @@ export namespace Prisma {
     username?: string
     email?: string
     xHandle?: string
+    userId?: string
     AND?: LaunchCampaignParticipantsWhereInput | LaunchCampaignParticipantsWhereInput[]
     OR?: LaunchCampaignParticipantsWhereInput[]
     NOT?: LaunchCampaignParticipantsWhereInput | LaunchCampaignParticipantsWhereInput[]
@@ -16561,8 +16578,8 @@ export namespace Prisma {
     commitment?: BoolFilter<"LaunchCampaignParticipants"> | boolean
     helpNeeded?: StringNullableFilter<"LaunchCampaignParticipants"> | string | null
     storyTellingVibe?: StringFilter<"LaunchCampaignParticipants"> | string
-    userId?: StringFilter<"LaunchCampaignParticipants"> | string
-  }, "id" | "fid" | "username" | "email" | "xHandle">
+    isApproved?: BoolNullableFilter<"LaunchCampaignParticipants"> | boolean | null
+  }, "id" | "fid" | "username" | "email" | "xHandle" | "userId">
 
   export type LaunchCampaignParticipantsOrderByWithAggregationInput = {
     id?: SortOrder
@@ -16575,6 +16592,7 @@ export namespace Prisma {
     helpNeeded?: SortOrderInput | SortOrder
     storyTellingVibe?: SortOrder
     userId?: SortOrder
+    isApproved?: SortOrderInput | SortOrder
     _count?: LaunchCampaignParticipantsCountOrderByAggregateInput
     _avg?: LaunchCampaignParticipantsAvgOrderByAggregateInput
     _max?: LaunchCampaignParticipantsMaxOrderByAggregateInput
@@ -16596,6 +16614,7 @@ export namespace Prisma {
     helpNeeded?: StringNullableWithAggregatesFilter<"LaunchCampaignParticipants"> | string | null
     storyTellingVibe?: StringWithAggregatesFilter<"LaunchCampaignParticipants"> | string
     userId?: StringWithAggregatesFilter<"LaunchCampaignParticipants"> | string
+    isApproved?: BoolNullableWithAggregatesFilter<"LaunchCampaignParticipants"> | boolean | null
   }
 
   export type StreakWhereInput = {
@@ -17738,6 +17757,7 @@ export namespace Prisma {
     helpNeeded?: string | null
     storyTellingVibe: string
     userId: string
+    isApproved?: boolean | null
   }
 
   export type LaunchCampaignParticipantsUncheckedCreateInput = {
@@ -17751,6 +17771,7 @@ export namespace Prisma {
     helpNeeded?: string | null
     storyTellingVibe: string
     userId: string
+    isApproved?: boolean | null
   }
 
   export type LaunchCampaignParticipantsUpdateInput = {
@@ -17764,6 +17785,7 @@ export namespace Prisma {
     helpNeeded?: NullableStringFieldUpdateOperationsInput | string | null
     storyTellingVibe?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    isApproved?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type LaunchCampaignParticipantsUncheckedUpdateInput = {
@@ -17777,6 +17799,7 @@ export namespace Prisma {
     helpNeeded?: NullableStringFieldUpdateOperationsInput | string | null
     storyTellingVibe?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    isApproved?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type LaunchCampaignParticipantsCreateManyInput = {
@@ -17790,6 +17813,7 @@ export namespace Prisma {
     helpNeeded?: string | null
     storyTellingVibe: string
     userId: string
+    isApproved?: boolean | null
   }
 
   export type LaunchCampaignParticipantsUpdateManyMutationInput = {
@@ -17803,6 +17827,7 @@ export namespace Prisma {
     helpNeeded?: NullableStringFieldUpdateOperationsInput | string | null
     storyTellingVibe?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    isApproved?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type LaunchCampaignParticipantsUncheckedUpdateManyInput = {
@@ -17816,6 +17841,7 @@ export namespace Prisma {
     helpNeeded?: NullableStringFieldUpdateOperationsInput | string | null
     storyTellingVibe?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    isApproved?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type StreakCreateInput = {
@@ -19092,6 +19118,7 @@ export namespace Prisma {
     helpNeeded?: SortOrder
     storyTellingVibe?: SortOrder
     userId?: SortOrder
+    isApproved?: SortOrder
   }
 
   export type LaunchCampaignParticipantsAvgOrderByAggregateInput = {
@@ -19109,6 +19136,7 @@ export namespace Prisma {
     helpNeeded?: SortOrder
     storyTellingVibe?: SortOrder
     userId?: SortOrder
+    isApproved?: SortOrder
   }
 
   export type LaunchCampaignParticipantsMinOrderByAggregateInput = {
@@ -19122,6 +19150,7 @@ export namespace Prisma {
     helpNeeded?: SortOrder
     storyTellingVibe?: SortOrder
     userId?: SortOrder
+    isApproved?: SortOrder
   }
 
   export type LaunchCampaignParticipantsSumOrderByAggregateInput = {

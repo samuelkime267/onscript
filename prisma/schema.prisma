@@ -157,7 +157,8 @@ model LaunchCampaignParticipants {
   commitment       Boolean
   helpNeeded       String?
   storyTellingVibe String
-  userId           String
+  userId           String          @unique
+  isApproved       Boolean?
 }
 
 enum web3ContentWork {
