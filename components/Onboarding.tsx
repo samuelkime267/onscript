@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Send, Shield, Stars, Zap } from "lucide-react";
+import { Send, Stars, Zap } from "lucide-react";
 import ButtonAction from "./ButtonAction";
 
 export default function Onboarding() {
