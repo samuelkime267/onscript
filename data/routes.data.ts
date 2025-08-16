@@ -1,6 +1,6 @@
 export const authRoutes = ["/login"];
 
-export const publicRoutes = ["/", "/api/user"];
+export const publicRoutes = ["/", "/api/user", "/.well-known/farcaster.json"];
 
 export const apiAuthPrefix = "/api/auth";
 
