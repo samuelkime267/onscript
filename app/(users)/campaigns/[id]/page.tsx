@@ -71,7 +71,7 @@ export default async function CampaignPage({
                 btnType="badge"
                 className="border border-orange-500 bg-orange-500/10 text-orange-500 rounded-full py-1 hover:bg-orange-500/10"
               >
-                Pending
+                Pending Approval
               </ButtonAction>
             ))}
         </div>

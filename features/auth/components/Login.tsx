@@ -26,7 +26,7 @@ export default function Login() {
 
   return (
     <Fragment>
-      <div className="flex flex-col gap-4">
+      <div className="w-full flex flex-col gap-4">
         {isError && <p className="text-red-800 text-center">{isError}</p>}
 
         <p className="capitalize text-center">
@@ -56,7 +56,7 @@ export default function Login() {
               // onClick={mockSignIn}
               onClick={handleSignIn}
               btnType="primary"
-              className={cn({ hidden: !address })}
+              className={cn("w-full", { hidden: !address })}
             >
               Login with Farcaster
             </ButtonAction>
