@@ -26,7 +26,7 @@ export default function Login() {
 
   return (
     <Fragment>
-      <CardContent className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         {isError && <p className="text-red-800 text-center">{isError}</p>}
 
         <p className="capitalize text-center">
@@ -62,7 +62,7 @@ export default function Login() {
             </ButtonAction>
           )}
         </div>
-      </CardContent>
+      </div>
 
       <Loader isLoading={isFetching} loaderText="Connecting..." />
     </Fragment>

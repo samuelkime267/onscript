@@ -3,7 +3,7 @@
 import { useMiniKit } from "@coinbase/onchainkit/minikit";
 import { useEffect, useState } from "react";
 import Init from "../../components/Init";
-import Onboarding from "@/components/onboarding";
+import Onboarding from "@/components/Onboarding";
 
 export default function App() {
   const { setFrameReady, isFrameReady } = useMiniKit();

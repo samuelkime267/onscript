@@ -1,33 +1,33 @@
 "use client";
 import React from "react";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Zap } from "lucide-react";
 import { Login } from "@/features/auth/components";
+import Image from "next/image";
 
 export default function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4">
-      <Card className="w-full">
-        <CardHeader className="text-center">
-          <div className="flex items-center justify-center w-16 h-16 bg-black rounded-2xl mb-4 mx-auto">
-            <Zap className="w-8 h-8 text-white" />
+      <div className="w-full bg-white p-4 rounded-xl flex items-center justify-center gap-8 flex-col shadow-xl shadow-black/[0.05]">
+        <div className="flex items-center justify-center flex-col gap-1">
+          <div className="w-16 h-16 bg-[#212121] rounded-xl flex items-center justify-center mx-auto mt-4 overflow-hidden">
+            <Image
+              src="/icon.png"
+              width={100}
+              height={100}
+              alt="logo"
+              className="w-full h-full object-cover"
+            />
           </div>
-          <CardTitle className="font-bold text-black">
+          <h1 className="font-bold text-black text-base">
             Welcome to Onscript
-          </CardTitle>
-          <CardDescription className="text-gray-500 text-xs">
+          </h1>
+          <p className="text-gray-500 text-xs text-center">
             The first decentralized social automation platform with
             contract-based authentication
-          </CardDescription>
-        </CardHeader>
+          </p>
+        </div>
 
         <Login />
-      </Card>
+      </div>
     </div>
   );
 }

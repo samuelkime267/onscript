@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`bg-white ${fonts}`}>
+      <body className={`bg-neutral-100 ${fonts}`}>
         <Providers>
           <div className="max-w-xl mx-auto">{children}</div>
         </Providers>
