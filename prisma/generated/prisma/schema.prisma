@@ -28,14 +28,20 @@ model Post {
 }
 
 model User {
-  id            String   @id @default(cuid())
-  walletAddress String   @unique
-  fid           Int      @unique
-  username      String   @unique
-  displayName   String?
-  pfpUrl        String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id                String    @id @default(cuid())
+  walletAddress     String    @unique
+  fid               Int       @unique
+  username          String    @unique
+  displayName       String?
+  pfpUrl            String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  signerUuid        String?   @unique
+  isUuidApprove     Boolean?
+  signerRegDeadline DateTime?
+  signerPublicKey   String?
+  signerApprovalUrl String?
+  role              UserRole  @default(USER)
 
   // Premium subscription
   isPremium        Boolean   @default(false)
@@ -62,6 +68,11 @@ model User {
   donations        Donation[]
   campaignPayments CampaignPayment[]
   securityEvents   SecurityEvent[]
+}
+
+enum UserRole {
+  ADMIN
+  USER
 }
 
 model AutomationRule {
@@ -134,6 +145,25 @@ model Campaign {
   participations Participation[]
   donations      Donation[]
   paymentInfo    CampaignPayment?
+}
+
+model LaunchCampaignParticipants {
+  id               String          @id @default(cuid())
+  fid              Int             @unique
+  username         String          @unique
+  email            String          @unique
+  xHandle          String          @unique
+  web3ContentWork  web3ContentWork
+  commitment       Boolean
+  helpNeeded       String?
+  storyTellingVibe String
+  userId           String
+}
+
+enum web3ContentWork {
+  YES
+  NO
+  KINDA
 }
 
 model Streak {

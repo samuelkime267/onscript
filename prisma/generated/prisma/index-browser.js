@@ -140,6 +140,12 @@ exports.Prisma.UserScalarFieldEnum = {
   pfpUrl: 'pfpUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  signerUuid: 'signerUuid',
+  isUuidApprove: 'isUuidApprove',
+  signerRegDeadline: 'signerRegDeadline',
+  signerPublicKey: 'signerPublicKey',
+  signerApprovalUrl: 'signerApprovalUrl',
+  role: 'role',
   isPremium: 'isPremium',
   premiumExpiresAt: 'premiumExpiresAt',
   dmsSentThisWeek: 'dmsSentThisWeek',
@@ -192,6 +198,19 @@ exports.Prisma.CampaignScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   creatorId: 'creatorId'
+};
+
+exports.Prisma.LaunchCampaignParticipantsScalarFieldEnum = {
+  id: 'id',
+  fid: 'fid',
+  username: 'username',
+  email: 'email',
+  xHandle: 'xHandle',
+  web3ContentWork: 'web3ContentWork',
+  commitment: 'commitment',
+  helpNeeded: 'helpNeeded',
+  storyTellingVibe: 'storyTellingVibe',
+  userId: 'userId'
 };
 
 exports.Prisma.StreakScalarFieldEnum = {
@@ -299,6 +318,11 @@ exports.PostStatus = exports.$Enums.PostStatus = {
   PUBLISHED: 'PUBLISHED'
 };
 
+exports.UserRole = exports.$Enums.UserRole = {
+  ADMIN: 'ADMIN',
+  USER: 'USER'
+};
+
 exports.CampaignFrequency = exports.$Enums.CampaignFrequency = {
   DAILY: 'DAILY',
   WEEKLY: 'WEEKLY',
@@ -311,6 +335,12 @@ exports.CampaignStatus = exports.$Enums.CampaignStatus = {
   ACTIVE: 'ACTIVE',
   PAUSED: 'PAUSED',
   ENDED: 'ENDED'
+};
+
+exports.web3ContentWork = exports.$Enums.web3ContentWork = {
+  YES: 'YES',
+  NO: 'NO',
+  KINDA: 'KINDA'
 };
 
 exports.StreakStatus = exports.$Enums.StreakStatus = {
@@ -356,6 +386,7 @@ exports.Prisma.ModelName = {
   AutomationRule: 'AutomationRule',
   ActivityLog: 'ActivityLog',
   Campaign: 'Campaign',
+  LaunchCampaignParticipants: 'LaunchCampaignParticipants',
   Streak: 'Streak',
   Participation: 'Participation',
   CampaignPayment: 'CampaignPayment',

@@ -39,6 +39,11 @@ export type ActivityLog = $Result.DefaultSelection<Prisma.$ActivityLogPayload>
  */
 export type Campaign = $Result.DefaultSelection<Prisma.$CampaignPayload>
 /**
+ * Model LaunchCampaignParticipants
+ * 
+ */
+export type LaunchCampaignParticipants = $Result.DefaultSelection<Prisma.$LaunchCampaignParticipantsPayload>
+/**
  * Model Streak
  * 
  */
@@ -68,7 +73,24 @@ export type SecurityEvent = $Result.DefaultSelection<Prisma.$SecurityEventPayloa
  * Enums
  */
 export namespace $Enums {
-  export const PostStatus: {
+  export const UserRole: {
+  ADMIN: 'ADMIN',
+  USER: 'USER'
+};
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+
+export const web3ContentWork: {
+  YES: 'YES',
+  NO: 'NO',
+  KINDA: 'KINDA'
+};
+
+export type web3ContentWork = (typeof web3ContentWork)[keyof typeof web3ContentWork]
+
+
+export const PostStatus: {
   DRAFT: 'DRAFT',
   SCHEDULED: 'SCHEDULED',
   PUBLISHED: 'PUBLISHED'
@@ -149,6 +171,14 @@ export const SecuritySeverity: {
 export type SecuritySeverity = (typeof SecuritySeverity)[keyof typeof SecuritySeverity]
 
 }
+
+export type UserRole = $Enums.UserRole
+
+export const UserRole: typeof $Enums.UserRole
+
+export type web3ContentWork = $Enums.web3ContentWork
+
+export const web3ContentWork: typeof $Enums.web3ContentWork
 
 export type PostStatus = $Enums.PostStatus
 
@@ -356,6 +386,16 @@ export class PrismaClient<
     * ```
     */
   get campaign(): Prisma.CampaignDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.launchCampaignParticipants`: Exposes CRUD operations for the **LaunchCampaignParticipants** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LaunchCampaignParticipants
+    * const launchCampaignParticipants = await prisma.launchCampaignParticipants.findMany()
+    * ```
+    */
+  get launchCampaignParticipants(): Prisma.LaunchCampaignParticipantsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.streak`: Exposes CRUD operations for the **Streak** model.
@@ -851,6 +891,7 @@ export namespace Prisma {
     AutomationRule: 'AutomationRule',
     ActivityLog: 'ActivityLog',
     Campaign: 'Campaign',
+    LaunchCampaignParticipants: 'LaunchCampaignParticipants',
     Streak: 'Streak',
     Participation: 'Participation',
     CampaignPayment: 'CampaignPayment',
@@ -874,7 +915,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "user" | "automationRule" | "activityLog" | "campaign" | "streak" | "participation" | "campaignPayment" | "donation" | "securityEvent"
+      modelProps: "post" | "user" | "automationRule" | "activityLog" | "campaign" | "launchCampaignParticipants" | "streak" | "participation" | "campaignPayment" | "donation" | "securityEvent"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1245,6 +1286,80 @@ export namespace Prisma {
           count: {
             args: Prisma.CampaignCountArgs<ExtArgs>
             result: $Utils.Optional<CampaignCountAggregateOutputType> | number
+          }
+        }
+      }
+      LaunchCampaignParticipants: {
+        payload: Prisma.$LaunchCampaignParticipantsPayload<ExtArgs>
+        fields: Prisma.LaunchCampaignParticipantsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LaunchCampaignParticipantsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LaunchCampaignParticipantsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LaunchCampaignParticipantsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LaunchCampaignParticipantsPayload>
+          }
+          findFirst: {
+            args: Prisma.LaunchCampaignParticipantsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LaunchCampaignParticipantsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LaunchCampaignParticipantsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LaunchCampaignParticipantsPayload>
+          }
+          findMany: {
+            args: Prisma.LaunchCampaignParticipantsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LaunchCampaignParticipantsPayload>[]
+          }
+          create: {
+            args: Prisma.LaunchCampaignParticipantsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LaunchCampaignParticipantsPayload>
+          }
+          createMany: {
+            args: Prisma.LaunchCampaignParticipantsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LaunchCampaignParticipantsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LaunchCampaignParticipantsPayload>[]
+          }
+          delete: {
+            args: Prisma.LaunchCampaignParticipantsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LaunchCampaignParticipantsPayload>
+          }
+          update: {
+            args: Prisma.LaunchCampaignParticipantsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LaunchCampaignParticipantsPayload>
+          }
+          deleteMany: {
+            args: Prisma.LaunchCampaignParticipantsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LaunchCampaignParticipantsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LaunchCampaignParticipantsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LaunchCampaignParticipantsPayload>[]
+          }
+          upsert: {
+            args: Prisma.LaunchCampaignParticipantsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LaunchCampaignParticipantsPayload>
+          }
+          aggregate: {
+            args: Prisma.LaunchCampaignParticipantsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLaunchCampaignParticipants>
+          }
+          groupBy: {
+            args: Prisma.LaunchCampaignParticipantsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LaunchCampaignParticipantsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LaunchCampaignParticipantsCountArgs<ExtArgs>
+            result: $Utils.Optional<LaunchCampaignParticipantsCountAggregateOutputType> | number
           }
         }
       }
@@ -1715,6 +1830,7 @@ export namespace Prisma {
     automationRule?: AutomationRuleOmit
     activityLog?: ActivityLogOmit
     campaign?: CampaignOmit
+    launchCampaignParticipants?: LaunchCampaignParticipantsOmit
     streak?: StreakOmit
     participation?: ParticipationOmit
     campaignPayment?: CampaignPaymentOmit
@@ -3102,6 +3218,12 @@ export namespace Prisma {
     pfpUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    signerUuid: string | null
+    isUuidApprove: boolean | null
+    signerRegDeadline: Date | null
+    signerPublicKey: string | null
+    signerApprovalUrl: string | null
+    role: $Enums.UserRole | null
     isPremium: boolean | null
     premiumExpiresAt: Date | null
     dmsSentThisWeek: number | null
@@ -3122,6 +3244,12 @@ export namespace Prisma {
     pfpUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    signerUuid: string | null
+    isUuidApprove: boolean | null
+    signerRegDeadline: Date | null
+    signerPublicKey: string | null
+    signerApprovalUrl: string | null
+    role: $Enums.UserRole | null
     isPremium: boolean | null
     premiumExpiresAt: Date | null
     dmsSentThisWeek: number | null
@@ -3142,6 +3270,12 @@ export namespace Prisma {
     pfpUrl: number
     createdAt: number
     updatedAt: number
+    signerUuid: number
+    isUuidApprove: number
+    signerRegDeadline: number
+    signerPublicKey: number
+    signerApprovalUrl: number
+    role: number
     isPremium: number
     premiumExpiresAt: number
     dmsSentThisWeek: number
@@ -3178,6 +3312,12 @@ export namespace Prisma {
     pfpUrl?: true
     createdAt?: true
     updatedAt?: true
+    signerUuid?: true
+    isUuidApprove?: true
+    signerRegDeadline?: true
+    signerPublicKey?: true
+    signerApprovalUrl?: true
+    role?: true
     isPremium?: true
     premiumExpiresAt?: true
     dmsSentThisWeek?: true
@@ -3198,6 +3338,12 @@ export namespace Prisma {
     pfpUrl?: true
     createdAt?: true
     updatedAt?: true
+    signerUuid?: true
+    isUuidApprove?: true
+    signerRegDeadline?: true
+    signerPublicKey?: true
+    signerApprovalUrl?: true
+    role?: true
     isPremium?: true
     premiumExpiresAt?: true
     dmsSentThisWeek?: true
@@ -3218,6 +3364,12 @@ export namespace Prisma {
     pfpUrl?: true
     createdAt?: true
     updatedAt?: true
+    signerUuid?: true
+    isUuidApprove?: true
+    signerRegDeadline?: true
+    signerPublicKey?: true
+    signerApprovalUrl?: true
+    role?: true
     isPremium?: true
     premiumExpiresAt?: true
     dmsSentThisWeek?: true
@@ -3325,6 +3477,12 @@ export namespace Prisma {
     pfpUrl: string | null
     createdAt: Date
     updatedAt: Date
+    signerUuid: string | null
+    isUuidApprove: boolean | null
+    signerRegDeadline: Date | null
+    signerPublicKey: string | null
+    signerApprovalUrl: string | null
+    role: $Enums.UserRole
     isPremium: boolean
     premiumExpiresAt: Date | null
     dmsSentThisWeek: number
@@ -3364,6 +3522,12 @@ export namespace Prisma {
     pfpUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    signerUuid?: boolean
+    isUuidApprove?: boolean
+    signerRegDeadline?: boolean
+    signerPublicKey?: boolean
+    signerApprovalUrl?: boolean
+    role?: boolean
     isPremium?: boolean
     premiumExpiresAt?: boolean
     dmsSentThisWeek?: boolean
@@ -3394,6 +3558,12 @@ export namespace Prisma {
     pfpUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    signerUuid?: boolean
+    isUuidApprove?: boolean
+    signerRegDeadline?: boolean
+    signerPublicKey?: boolean
+    signerApprovalUrl?: boolean
+    role?: boolean
     isPremium?: boolean
     premiumExpiresAt?: boolean
     dmsSentThisWeek?: boolean
@@ -3414,6 +3584,12 @@ export namespace Prisma {
     pfpUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    signerUuid?: boolean
+    isUuidApprove?: boolean
+    signerRegDeadline?: boolean
+    signerPublicKey?: boolean
+    signerApprovalUrl?: boolean
+    role?: boolean
     isPremium?: boolean
     premiumExpiresAt?: boolean
     dmsSentThisWeek?: boolean
@@ -3434,6 +3610,12 @@ export namespace Prisma {
     pfpUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    signerUuid?: boolean
+    isUuidApprove?: boolean
+    signerRegDeadline?: boolean
+    signerPublicKey?: boolean
+    signerApprovalUrl?: boolean
+    role?: boolean
     isPremium?: boolean
     premiumExpiresAt?: boolean
     dmsSentThisWeek?: boolean
@@ -3445,7 +3627,7 @@ export namespace Prisma {
     lastNonceUsed?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "walletAddress" | "fid" | "username" | "displayName" | "pfpUrl" | "createdAt" | "updatedAt" | "isPremium" | "premiumExpiresAt" | "dmsSentThisWeek" | "postsThisWeek" | "weekResetDate" | "lastLoginAt" | "loginAttempts" | "lockedUntil" | "lastNonceUsed", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "walletAddress" | "fid" | "username" | "displayName" | "pfpUrl" | "createdAt" | "updatedAt" | "signerUuid" | "isUuidApprove" | "signerRegDeadline" | "signerPublicKey" | "signerApprovalUrl" | "role" | "isPremium" | "premiumExpiresAt" | "dmsSentThisWeek" | "postsThisWeek" | "weekResetDate" | "lastLoginAt" | "loginAttempts" | "lockedUntil" | "lastNonceUsed", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts?: boolean | User$postsArgs<ExtArgs>
     automationRules?: boolean | User$automationRulesArgs<ExtArgs>
@@ -3483,6 +3665,12 @@ export namespace Prisma {
       pfpUrl: string | null
       createdAt: Date
       updatedAt: Date
+      signerUuid: string | null
+      isUuidApprove: boolean | null
+      signerRegDeadline: Date | null
+      signerPublicKey: string | null
+      signerApprovalUrl: string | null
+      role: $Enums.UserRole
       isPremium: boolean
       premiumExpiresAt: Date | null
       dmsSentThisWeek: number
@@ -3932,6 +4120,12 @@ export namespace Prisma {
     readonly pfpUrl: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly signerUuid: FieldRef<"User", 'String'>
+    readonly isUuidApprove: FieldRef<"User", 'Boolean'>
+    readonly signerRegDeadline: FieldRef<"User", 'DateTime'>
+    readonly signerPublicKey: FieldRef<"User", 'String'>
+    readonly signerApprovalUrl: FieldRef<"User", 'String'>
+    readonly role: FieldRef<"User", 'UserRole'>
     readonly isPremium: FieldRef<"User", 'Boolean'>
     readonly premiumExpiresAt: FieldRef<"User", 'DateTime'>
     readonly dmsSentThisWeek: FieldRef<"User", 'Int'>
@@ -8166,6 +8360,1100 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CampaignInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LaunchCampaignParticipants
+   */
+
+  export type AggregateLaunchCampaignParticipants = {
+    _count: LaunchCampaignParticipantsCountAggregateOutputType | null
+    _avg: LaunchCampaignParticipantsAvgAggregateOutputType | null
+    _sum: LaunchCampaignParticipantsSumAggregateOutputType | null
+    _min: LaunchCampaignParticipantsMinAggregateOutputType | null
+    _max: LaunchCampaignParticipantsMaxAggregateOutputType | null
+  }
+
+  export type LaunchCampaignParticipantsAvgAggregateOutputType = {
+    fid: number | null
+  }
+
+  export type LaunchCampaignParticipantsSumAggregateOutputType = {
+    fid: number | null
+  }
+
+  export type LaunchCampaignParticipantsMinAggregateOutputType = {
+    id: string | null
+    fid: number | null
+    username: string | null
+    email: string | null
+    xHandle: string | null
+    web3ContentWork: $Enums.web3ContentWork | null
+    commitment: boolean | null
+    helpNeeded: string | null
+    storyTellingVibe: string | null
+    userId: string | null
+  }
+
+  export type LaunchCampaignParticipantsMaxAggregateOutputType = {
+    id: string | null
+    fid: number | null
+    username: string | null
+    email: string | null
+    xHandle: string | null
+    web3ContentWork: $Enums.web3ContentWork | null
+    commitment: boolean | null
+    helpNeeded: string | null
+    storyTellingVibe: string | null
+    userId: string | null
+  }
+
+  export type LaunchCampaignParticipantsCountAggregateOutputType = {
+    id: number
+    fid: number
+    username: number
+    email: number
+    xHandle: number
+    web3ContentWork: number
+    commitment: number
+    helpNeeded: number
+    storyTellingVibe: number
+    userId: number
+    _all: number
+  }
+
+
+  export type LaunchCampaignParticipantsAvgAggregateInputType = {
+    fid?: true
+  }
+
+  export type LaunchCampaignParticipantsSumAggregateInputType = {
+    fid?: true
+  }
+
+  export type LaunchCampaignParticipantsMinAggregateInputType = {
+    id?: true
+    fid?: true
+    username?: true
+    email?: true
+    xHandle?: true
+    web3ContentWork?: true
+    commitment?: true
+    helpNeeded?: true
+    storyTellingVibe?: true
+    userId?: true
+  }
+
+  export type LaunchCampaignParticipantsMaxAggregateInputType = {
+    id?: true
+    fid?: true
+    username?: true
+    email?: true
+    xHandle?: true
+    web3ContentWork?: true
+    commitment?: true
+    helpNeeded?: true
+    storyTellingVibe?: true
+    userId?: true
+  }
+
+  export type LaunchCampaignParticipantsCountAggregateInputType = {
+    id?: true
+    fid?: true
+    username?: true
+    email?: true
+    xHandle?: true
+    web3ContentWork?: true
+    commitment?: true
+    helpNeeded?: true
+    storyTellingVibe?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type LaunchCampaignParticipantsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LaunchCampaignParticipants to aggregate.
+     */
+    where?: LaunchCampaignParticipantsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LaunchCampaignParticipants to fetch.
+     */
+    orderBy?: LaunchCampaignParticipantsOrderByWithRelationInput | LaunchCampaignParticipantsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LaunchCampaignParticipantsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LaunchCampaignParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LaunchCampaignParticipants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LaunchCampaignParticipants
+    **/
+    _count?: true | LaunchCampaignParticipantsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LaunchCampaignParticipantsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LaunchCampaignParticipantsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LaunchCampaignParticipantsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LaunchCampaignParticipantsMaxAggregateInputType
+  }
+
+  export type GetLaunchCampaignParticipantsAggregateType<T extends LaunchCampaignParticipantsAggregateArgs> = {
+        [P in keyof T & keyof AggregateLaunchCampaignParticipants]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLaunchCampaignParticipants[P]>
+      : GetScalarType<T[P], AggregateLaunchCampaignParticipants[P]>
+  }
+
+
+
+
+  export type LaunchCampaignParticipantsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LaunchCampaignParticipantsWhereInput
+    orderBy?: LaunchCampaignParticipantsOrderByWithAggregationInput | LaunchCampaignParticipantsOrderByWithAggregationInput[]
+    by: LaunchCampaignParticipantsScalarFieldEnum[] | LaunchCampaignParticipantsScalarFieldEnum
+    having?: LaunchCampaignParticipantsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LaunchCampaignParticipantsCountAggregateInputType | true
+    _avg?: LaunchCampaignParticipantsAvgAggregateInputType
+    _sum?: LaunchCampaignParticipantsSumAggregateInputType
+    _min?: LaunchCampaignParticipantsMinAggregateInputType
+    _max?: LaunchCampaignParticipantsMaxAggregateInputType
+  }
+
+  export type LaunchCampaignParticipantsGroupByOutputType = {
+    id: string
+    fid: number
+    username: string
+    email: string
+    xHandle: string
+    web3ContentWork: $Enums.web3ContentWork
+    commitment: boolean
+    helpNeeded: string | null
+    storyTellingVibe: string
+    userId: string
+    _count: LaunchCampaignParticipantsCountAggregateOutputType | null
+    _avg: LaunchCampaignParticipantsAvgAggregateOutputType | null
+    _sum: LaunchCampaignParticipantsSumAggregateOutputType | null
+    _min: LaunchCampaignParticipantsMinAggregateOutputType | null
+    _max: LaunchCampaignParticipantsMaxAggregateOutputType | null
+  }
+
+  type GetLaunchCampaignParticipantsGroupByPayload<T extends LaunchCampaignParticipantsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LaunchCampaignParticipantsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LaunchCampaignParticipantsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LaunchCampaignParticipantsGroupByOutputType[P]>
+            : GetScalarType<T[P], LaunchCampaignParticipantsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LaunchCampaignParticipantsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fid?: boolean
+    username?: boolean
+    email?: boolean
+    xHandle?: boolean
+    web3ContentWork?: boolean
+    commitment?: boolean
+    helpNeeded?: boolean
+    storyTellingVibe?: boolean
+    userId?: boolean
+  }, ExtArgs["result"]["launchCampaignParticipants"]>
+
+  export type LaunchCampaignParticipantsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fid?: boolean
+    username?: boolean
+    email?: boolean
+    xHandle?: boolean
+    web3ContentWork?: boolean
+    commitment?: boolean
+    helpNeeded?: boolean
+    storyTellingVibe?: boolean
+    userId?: boolean
+  }, ExtArgs["result"]["launchCampaignParticipants"]>
+
+  export type LaunchCampaignParticipantsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fid?: boolean
+    username?: boolean
+    email?: boolean
+    xHandle?: boolean
+    web3ContentWork?: boolean
+    commitment?: boolean
+    helpNeeded?: boolean
+    storyTellingVibe?: boolean
+    userId?: boolean
+  }, ExtArgs["result"]["launchCampaignParticipants"]>
+
+  export type LaunchCampaignParticipantsSelectScalar = {
+    id?: boolean
+    fid?: boolean
+    username?: boolean
+    email?: boolean
+    xHandle?: boolean
+    web3ContentWork?: boolean
+    commitment?: boolean
+    helpNeeded?: boolean
+    storyTellingVibe?: boolean
+    userId?: boolean
+  }
+
+  export type LaunchCampaignParticipantsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fid" | "username" | "email" | "xHandle" | "web3ContentWork" | "commitment" | "helpNeeded" | "storyTellingVibe" | "userId", ExtArgs["result"]["launchCampaignParticipants"]>
+
+  export type $LaunchCampaignParticipantsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LaunchCampaignParticipants"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      fid: number
+      username: string
+      email: string
+      xHandle: string
+      web3ContentWork: $Enums.web3ContentWork
+      commitment: boolean
+      helpNeeded: string | null
+      storyTellingVibe: string
+      userId: string
+    }, ExtArgs["result"]["launchCampaignParticipants"]>
+    composites: {}
+  }
+
+  type LaunchCampaignParticipantsGetPayload<S extends boolean | null | undefined | LaunchCampaignParticipantsDefaultArgs> = $Result.GetResult<Prisma.$LaunchCampaignParticipantsPayload, S>
+
+  type LaunchCampaignParticipantsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LaunchCampaignParticipantsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LaunchCampaignParticipantsCountAggregateInputType | true
+    }
+
+  export interface LaunchCampaignParticipantsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LaunchCampaignParticipants'], meta: { name: 'LaunchCampaignParticipants' } }
+    /**
+     * Find zero or one LaunchCampaignParticipants that matches the filter.
+     * @param {LaunchCampaignParticipantsFindUniqueArgs} args - Arguments to find a LaunchCampaignParticipants
+     * @example
+     * // Get one LaunchCampaignParticipants
+     * const launchCampaignParticipants = await prisma.launchCampaignParticipants.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LaunchCampaignParticipantsFindUniqueArgs>(args: SelectSubset<T, LaunchCampaignParticipantsFindUniqueArgs<ExtArgs>>): Prisma__LaunchCampaignParticipantsClient<$Result.GetResult<Prisma.$LaunchCampaignParticipantsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LaunchCampaignParticipants that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LaunchCampaignParticipantsFindUniqueOrThrowArgs} args - Arguments to find a LaunchCampaignParticipants
+     * @example
+     * // Get one LaunchCampaignParticipants
+     * const launchCampaignParticipants = await prisma.launchCampaignParticipants.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LaunchCampaignParticipantsFindUniqueOrThrowArgs>(args: SelectSubset<T, LaunchCampaignParticipantsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LaunchCampaignParticipantsClient<$Result.GetResult<Prisma.$LaunchCampaignParticipantsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LaunchCampaignParticipants that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LaunchCampaignParticipantsFindFirstArgs} args - Arguments to find a LaunchCampaignParticipants
+     * @example
+     * // Get one LaunchCampaignParticipants
+     * const launchCampaignParticipants = await prisma.launchCampaignParticipants.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LaunchCampaignParticipantsFindFirstArgs>(args?: SelectSubset<T, LaunchCampaignParticipantsFindFirstArgs<ExtArgs>>): Prisma__LaunchCampaignParticipantsClient<$Result.GetResult<Prisma.$LaunchCampaignParticipantsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LaunchCampaignParticipants that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LaunchCampaignParticipantsFindFirstOrThrowArgs} args - Arguments to find a LaunchCampaignParticipants
+     * @example
+     * // Get one LaunchCampaignParticipants
+     * const launchCampaignParticipants = await prisma.launchCampaignParticipants.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LaunchCampaignParticipantsFindFirstOrThrowArgs>(args?: SelectSubset<T, LaunchCampaignParticipantsFindFirstOrThrowArgs<ExtArgs>>): Prisma__LaunchCampaignParticipantsClient<$Result.GetResult<Prisma.$LaunchCampaignParticipantsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LaunchCampaignParticipants that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LaunchCampaignParticipantsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LaunchCampaignParticipants
+     * const launchCampaignParticipants = await prisma.launchCampaignParticipants.findMany()
+     * 
+     * // Get first 10 LaunchCampaignParticipants
+     * const launchCampaignParticipants = await prisma.launchCampaignParticipants.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const launchCampaignParticipantsWithIdOnly = await prisma.launchCampaignParticipants.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LaunchCampaignParticipantsFindManyArgs>(args?: SelectSubset<T, LaunchCampaignParticipantsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LaunchCampaignParticipantsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LaunchCampaignParticipants.
+     * @param {LaunchCampaignParticipantsCreateArgs} args - Arguments to create a LaunchCampaignParticipants.
+     * @example
+     * // Create one LaunchCampaignParticipants
+     * const LaunchCampaignParticipants = await prisma.launchCampaignParticipants.create({
+     *   data: {
+     *     // ... data to create a LaunchCampaignParticipants
+     *   }
+     * })
+     * 
+     */
+    create<T extends LaunchCampaignParticipantsCreateArgs>(args: SelectSubset<T, LaunchCampaignParticipantsCreateArgs<ExtArgs>>): Prisma__LaunchCampaignParticipantsClient<$Result.GetResult<Prisma.$LaunchCampaignParticipantsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LaunchCampaignParticipants.
+     * @param {LaunchCampaignParticipantsCreateManyArgs} args - Arguments to create many LaunchCampaignParticipants.
+     * @example
+     * // Create many LaunchCampaignParticipants
+     * const launchCampaignParticipants = await prisma.launchCampaignParticipants.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LaunchCampaignParticipantsCreateManyArgs>(args?: SelectSubset<T, LaunchCampaignParticipantsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LaunchCampaignParticipants and returns the data saved in the database.
+     * @param {LaunchCampaignParticipantsCreateManyAndReturnArgs} args - Arguments to create many LaunchCampaignParticipants.
+     * @example
+     * // Create many LaunchCampaignParticipants
+     * const launchCampaignParticipants = await prisma.launchCampaignParticipants.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LaunchCampaignParticipants and only return the `id`
+     * const launchCampaignParticipantsWithIdOnly = await prisma.launchCampaignParticipants.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LaunchCampaignParticipantsCreateManyAndReturnArgs>(args?: SelectSubset<T, LaunchCampaignParticipantsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LaunchCampaignParticipantsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LaunchCampaignParticipants.
+     * @param {LaunchCampaignParticipantsDeleteArgs} args - Arguments to delete one LaunchCampaignParticipants.
+     * @example
+     * // Delete one LaunchCampaignParticipants
+     * const LaunchCampaignParticipants = await prisma.launchCampaignParticipants.delete({
+     *   where: {
+     *     // ... filter to delete one LaunchCampaignParticipants
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LaunchCampaignParticipantsDeleteArgs>(args: SelectSubset<T, LaunchCampaignParticipantsDeleteArgs<ExtArgs>>): Prisma__LaunchCampaignParticipantsClient<$Result.GetResult<Prisma.$LaunchCampaignParticipantsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LaunchCampaignParticipants.
+     * @param {LaunchCampaignParticipantsUpdateArgs} args - Arguments to update one LaunchCampaignParticipants.
+     * @example
+     * // Update one LaunchCampaignParticipants
+     * const launchCampaignParticipants = await prisma.launchCampaignParticipants.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LaunchCampaignParticipantsUpdateArgs>(args: SelectSubset<T, LaunchCampaignParticipantsUpdateArgs<ExtArgs>>): Prisma__LaunchCampaignParticipantsClient<$Result.GetResult<Prisma.$LaunchCampaignParticipantsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LaunchCampaignParticipants.
+     * @param {LaunchCampaignParticipantsDeleteManyArgs} args - Arguments to filter LaunchCampaignParticipants to delete.
+     * @example
+     * // Delete a few LaunchCampaignParticipants
+     * const { count } = await prisma.launchCampaignParticipants.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LaunchCampaignParticipantsDeleteManyArgs>(args?: SelectSubset<T, LaunchCampaignParticipantsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LaunchCampaignParticipants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LaunchCampaignParticipantsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LaunchCampaignParticipants
+     * const launchCampaignParticipants = await prisma.launchCampaignParticipants.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LaunchCampaignParticipantsUpdateManyArgs>(args: SelectSubset<T, LaunchCampaignParticipantsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LaunchCampaignParticipants and returns the data updated in the database.
+     * @param {LaunchCampaignParticipantsUpdateManyAndReturnArgs} args - Arguments to update many LaunchCampaignParticipants.
+     * @example
+     * // Update many LaunchCampaignParticipants
+     * const launchCampaignParticipants = await prisma.launchCampaignParticipants.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LaunchCampaignParticipants and only return the `id`
+     * const launchCampaignParticipantsWithIdOnly = await prisma.launchCampaignParticipants.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LaunchCampaignParticipantsUpdateManyAndReturnArgs>(args: SelectSubset<T, LaunchCampaignParticipantsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LaunchCampaignParticipantsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LaunchCampaignParticipants.
+     * @param {LaunchCampaignParticipantsUpsertArgs} args - Arguments to update or create a LaunchCampaignParticipants.
+     * @example
+     * // Update or create a LaunchCampaignParticipants
+     * const launchCampaignParticipants = await prisma.launchCampaignParticipants.upsert({
+     *   create: {
+     *     // ... data to create a LaunchCampaignParticipants
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LaunchCampaignParticipants we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LaunchCampaignParticipantsUpsertArgs>(args: SelectSubset<T, LaunchCampaignParticipantsUpsertArgs<ExtArgs>>): Prisma__LaunchCampaignParticipantsClient<$Result.GetResult<Prisma.$LaunchCampaignParticipantsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LaunchCampaignParticipants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LaunchCampaignParticipantsCountArgs} args - Arguments to filter LaunchCampaignParticipants to count.
+     * @example
+     * // Count the number of LaunchCampaignParticipants
+     * const count = await prisma.launchCampaignParticipants.count({
+     *   where: {
+     *     // ... the filter for the LaunchCampaignParticipants we want to count
+     *   }
+     * })
+    **/
+    count<T extends LaunchCampaignParticipantsCountArgs>(
+      args?: Subset<T, LaunchCampaignParticipantsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LaunchCampaignParticipantsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LaunchCampaignParticipants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LaunchCampaignParticipantsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LaunchCampaignParticipantsAggregateArgs>(args: Subset<T, LaunchCampaignParticipantsAggregateArgs>): Prisma.PrismaPromise<GetLaunchCampaignParticipantsAggregateType<T>>
+
+    /**
+     * Group by LaunchCampaignParticipants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LaunchCampaignParticipantsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LaunchCampaignParticipantsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LaunchCampaignParticipantsGroupByArgs['orderBy'] }
+        : { orderBy?: LaunchCampaignParticipantsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LaunchCampaignParticipantsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLaunchCampaignParticipantsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LaunchCampaignParticipants model
+   */
+  readonly fields: LaunchCampaignParticipantsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LaunchCampaignParticipants.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LaunchCampaignParticipantsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LaunchCampaignParticipants model
+   */
+  interface LaunchCampaignParticipantsFieldRefs {
+    readonly id: FieldRef<"LaunchCampaignParticipants", 'String'>
+    readonly fid: FieldRef<"LaunchCampaignParticipants", 'Int'>
+    readonly username: FieldRef<"LaunchCampaignParticipants", 'String'>
+    readonly email: FieldRef<"LaunchCampaignParticipants", 'String'>
+    readonly xHandle: FieldRef<"LaunchCampaignParticipants", 'String'>
+    readonly web3ContentWork: FieldRef<"LaunchCampaignParticipants", 'web3ContentWork'>
+    readonly commitment: FieldRef<"LaunchCampaignParticipants", 'Boolean'>
+    readonly helpNeeded: FieldRef<"LaunchCampaignParticipants", 'String'>
+    readonly storyTellingVibe: FieldRef<"LaunchCampaignParticipants", 'String'>
+    readonly userId: FieldRef<"LaunchCampaignParticipants", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LaunchCampaignParticipants findUnique
+   */
+  export type LaunchCampaignParticipantsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LaunchCampaignParticipants
+     */
+    select?: LaunchCampaignParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LaunchCampaignParticipants
+     */
+    omit?: LaunchCampaignParticipantsOmit<ExtArgs> | null
+    /**
+     * Filter, which LaunchCampaignParticipants to fetch.
+     */
+    where: LaunchCampaignParticipantsWhereUniqueInput
+  }
+
+  /**
+   * LaunchCampaignParticipants findUniqueOrThrow
+   */
+  export type LaunchCampaignParticipantsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LaunchCampaignParticipants
+     */
+    select?: LaunchCampaignParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LaunchCampaignParticipants
+     */
+    omit?: LaunchCampaignParticipantsOmit<ExtArgs> | null
+    /**
+     * Filter, which LaunchCampaignParticipants to fetch.
+     */
+    where: LaunchCampaignParticipantsWhereUniqueInput
+  }
+
+  /**
+   * LaunchCampaignParticipants findFirst
+   */
+  export type LaunchCampaignParticipantsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LaunchCampaignParticipants
+     */
+    select?: LaunchCampaignParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LaunchCampaignParticipants
+     */
+    omit?: LaunchCampaignParticipantsOmit<ExtArgs> | null
+    /**
+     * Filter, which LaunchCampaignParticipants to fetch.
+     */
+    where?: LaunchCampaignParticipantsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LaunchCampaignParticipants to fetch.
+     */
+    orderBy?: LaunchCampaignParticipantsOrderByWithRelationInput | LaunchCampaignParticipantsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LaunchCampaignParticipants.
+     */
+    cursor?: LaunchCampaignParticipantsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LaunchCampaignParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LaunchCampaignParticipants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LaunchCampaignParticipants.
+     */
+    distinct?: LaunchCampaignParticipantsScalarFieldEnum | LaunchCampaignParticipantsScalarFieldEnum[]
+  }
+
+  /**
+   * LaunchCampaignParticipants findFirstOrThrow
+   */
+  export type LaunchCampaignParticipantsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LaunchCampaignParticipants
+     */
+    select?: LaunchCampaignParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LaunchCampaignParticipants
+     */
+    omit?: LaunchCampaignParticipantsOmit<ExtArgs> | null
+    /**
+     * Filter, which LaunchCampaignParticipants to fetch.
+     */
+    where?: LaunchCampaignParticipantsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LaunchCampaignParticipants to fetch.
+     */
+    orderBy?: LaunchCampaignParticipantsOrderByWithRelationInput | LaunchCampaignParticipantsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LaunchCampaignParticipants.
+     */
+    cursor?: LaunchCampaignParticipantsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LaunchCampaignParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LaunchCampaignParticipants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LaunchCampaignParticipants.
+     */
+    distinct?: LaunchCampaignParticipantsScalarFieldEnum | LaunchCampaignParticipantsScalarFieldEnum[]
+  }
+
+  /**
+   * LaunchCampaignParticipants findMany
+   */
+  export type LaunchCampaignParticipantsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LaunchCampaignParticipants
+     */
+    select?: LaunchCampaignParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LaunchCampaignParticipants
+     */
+    omit?: LaunchCampaignParticipantsOmit<ExtArgs> | null
+    /**
+     * Filter, which LaunchCampaignParticipants to fetch.
+     */
+    where?: LaunchCampaignParticipantsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LaunchCampaignParticipants to fetch.
+     */
+    orderBy?: LaunchCampaignParticipantsOrderByWithRelationInput | LaunchCampaignParticipantsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LaunchCampaignParticipants.
+     */
+    cursor?: LaunchCampaignParticipantsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LaunchCampaignParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LaunchCampaignParticipants.
+     */
+    skip?: number
+    distinct?: LaunchCampaignParticipantsScalarFieldEnum | LaunchCampaignParticipantsScalarFieldEnum[]
+  }
+
+  /**
+   * LaunchCampaignParticipants create
+   */
+  export type LaunchCampaignParticipantsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LaunchCampaignParticipants
+     */
+    select?: LaunchCampaignParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LaunchCampaignParticipants
+     */
+    omit?: LaunchCampaignParticipantsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a LaunchCampaignParticipants.
+     */
+    data: XOR<LaunchCampaignParticipantsCreateInput, LaunchCampaignParticipantsUncheckedCreateInput>
+  }
+
+  /**
+   * LaunchCampaignParticipants createMany
+   */
+  export type LaunchCampaignParticipantsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LaunchCampaignParticipants.
+     */
+    data: LaunchCampaignParticipantsCreateManyInput | LaunchCampaignParticipantsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LaunchCampaignParticipants createManyAndReturn
+   */
+  export type LaunchCampaignParticipantsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LaunchCampaignParticipants
+     */
+    select?: LaunchCampaignParticipantsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LaunchCampaignParticipants
+     */
+    omit?: LaunchCampaignParticipantsOmit<ExtArgs> | null
+    /**
+     * The data used to create many LaunchCampaignParticipants.
+     */
+    data: LaunchCampaignParticipantsCreateManyInput | LaunchCampaignParticipantsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LaunchCampaignParticipants update
+   */
+  export type LaunchCampaignParticipantsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LaunchCampaignParticipants
+     */
+    select?: LaunchCampaignParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LaunchCampaignParticipants
+     */
+    omit?: LaunchCampaignParticipantsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a LaunchCampaignParticipants.
+     */
+    data: XOR<LaunchCampaignParticipantsUpdateInput, LaunchCampaignParticipantsUncheckedUpdateInput>
+    /**
+     * Choose, which LaunchCampaignParticipants to update.
+     */
+    where: LaunchCampaignParticipantsWhereUniqueInput
+  }
+
+  /**
+   * LaunchCampaignParticipants updateMany
+   */
+  export type LaunchCampaignParticipantsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LaunchCampaignParticipants.
+     */
+    data: XOR<LaunchCampaignParticipantsUpdateManyMutationInput, LaunchCampaignParticipantsUncheckedUpdateManyInput>
+    /**
+     * Filter which LaunchCampaignParticipants to update
+     */
+    where?: LaunchCampaignParticipantsWhereInput
+    /**
+     * Limit how many LaunchCampaignParticipants to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LaunchCampaignParticipants updateManyAndReturn
+   */
+  export type LaunchCampaignParticipantsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LaunchCampaignParticipants
+     */
+    select?: LaunchCampaignParticipantsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LaunchCampaignParticipants
+     */
+    omit?: LaunchCampaignParticipantsOmit<ExtArgs> | null
+    /**
+     * The data used to update LaunchCampaignParticipants.
+     */
+    data: XOR<LaunchCampaignParticipantsUpdateManyMutationInput, LaunchCampaignParticipantsUncheckedUpdateManyInput>
+    /**
+     * Filter which LaunchCampaignParticipants to update
+     */
+    where?: LaunchCampaignParticipantsWhereInput
+    /**
+     * Limit how many LaunchCampaignParticipants to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LaunchCampaignParticipants upsert
+   */
+  export type LaunchCampaignParticipantsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LaunchCampaignParticipants
+     */
+    select?: LaunchCampaignParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LaunchCampaignParticipants
+     */
+    omit?: LaunchCampaignParticipantsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the LaunchCampaignParticipants to update in case it exists.
+     */
+    where: LaunchCampaignParticipantsWhereUniqueInput
+    /**
+     * In case the LaunchCampaignParticipants found by the `where` argument doesn't exist, create a new LaunchCampaignParticipants with this data.
+     */
+    create: XOR<LaunchCampaignParticipantsCreateInput, LaunchCampaignParticipantsUncheckedCreateInput>
+    /**
+     * In case the LaunchCampaignParticipants was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LaunchCampaignParticipantsUpdateInput, LaunchCampaignParticipantsUncheckedUpdateInput>
+  }
+
+  /**
+   * LaunchCampaignParticipants delete
+   */
+  export type LaunchCampaignParticipantsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LaunchCampaignParticipants
+     */
+    select?: LaunchCampaignParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LaunchCampaignParticipants
+     */
+    omit?: LaunchCampaignParticipantsOmit<ExtArgs> | null
+    /**
+     * Filter which LaunchCampaignParticipants to delete.
+     */
+    where: LaunchCampaignParticipantsWhereUniqueInput
+  }
+
+  /**
+   * LaunchCampaignParticipants deleteMany
+   */
+  export type LaunchCampaignParticipantsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LaunchCampaignParticipants to delete
+     */
+    where?: LaunchCampaignParticipantsWhereInput
+    /**
+     * Limit how many LaunchCampaignParticipants to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LaunchCampaignParticipants without action
+   */
+  export type LaunchCampaignParticipantsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LaunchCampaignParticipants
+     */
+    select?: LaunchCampaignParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LaunchCampaignParticipants
+     */
+    omit?: LaunchCampaignParticipantsOmit<ExtArgs> | null
   }
 
 
@@ -14277,6 +15565,12 @@ export namespace Prisma {
     pfpUrl: 'pfpUrl',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
+    signerUuid: 'signerUuid',
+    isUuidApprove: 'isUuidApprove',
+    signerRegDeadline: 'signerRegDeadline',
+    signerPublicKey: 'signerPublicKey',
+    signerApprovalUrl: 'signerApprovalUrl',
+    role: 'role',
     isPremium: 'isPremium',
     premiumExpiresAt: 'premiumExpiresAt',
     dmsSentThisWeek: 'dmsSentThisWeek',
@@ -14341,6 +15635,22 @@ export namespace Prisma {
   };
 
   export type CampaignScalarFieldEnum = (typeof CampaignScalarFieldEnum)[keyof typeof CampaignScalarFieldEnum]
+
+
+  export const LaunchCampaignParticipantsScalarFieldEnum: {
+    id: 'id',
+    fid: 'fid',
+    username: 'username',
+    email: 'email',
+    xHandle: 'xHandle',
+    web3ContentWork: 'web3ContentWork',
+    commitment: 'commitment',
+    helpNeeded: 'helpNeeded',
+    storyTellingVibe: 'storyTellingVibe',
+    userId: 'userId'
+  };
+
+  export type LaunchCampaignParticipantsScalarFieldEnum = (typeof LaunchCampaignParticipantsScalarFieldEnum)[keyof typeof LaunchCampaignParticipantsScalarFieldEnum]
 
 
   export const StreakScalarFieldEnum: {
@@ -14536,6 +15846,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'UserRole'
+   */
+  export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserRole[]'
+   */
+  export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>
+    
+
+
+  /**
    * Reference to a field of type 'CampaignFrequency'
    */
   export type EnumCampaignFrequencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CampaignFrequency'>
@@ -14574,6 +15898,20 @@ export namespace Prisma {
    * Reference to a field of type 'CampaignStatus[]'
    */
   export type ListEnumCampaignStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CampaignStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'web3ContentWork'
+   */
+  export type Enumweb3ContentWorkFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'web3ContentWork'>
+    
+
+
+  /**
+   * Reference to a field of type 'web3ContentWork[]'
+   */
+  export type ListEnumweb3ContentWorkFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'web3ContentWork[]'>
     
 
 
@@ -14746,6 +16084,12 @@ export namespace Prisma {
     pfpUrl?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    signerUuid?: StringNullableFilter<"User"> | string | null
+    isUuidApprove?: BoolNullableFilter<"User"> | boolean | null
+    signerRegDeadline?: DateTimeNullableFilter<"User"> | Date | string | null
+    signerPublicKey?: StringNullableFilter<"User"> | string | null
+    signerApprovalUrl?: StringNullableFilter<"User"> | string | null
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     isPremium?: BoolFilter<"User"> | boolean
     premiumExpiresAt?: DateTimeNullableFilter<"User"> | Date | string | null
     dmsSentThisWeek?: IntFilter<"User"> | number
@@ -14775,6 +16119,12 @@ export namespace Prisma {
     pfpUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    signerUuid?: SortOrderInput | SortOrder
+    isUuidApprove?: SortOrderInput | SortOrder
+    signerRegDeadline?: SortOrderInput | SortOrder
+    signerPublicKey?: SortOrderInput | SortOrder
+    signerApprovalUrl?: SortOrderInput | SortOrder
+    role?: SortOrder
     isPremium?: SortOrder
     premiumExpiresAt?: SortOrderInput | SortOrder
     dmsSentThisWeek?: SortOrder
@@ -14800,6 +16150,7 @@ export namespace Prisma {
     walletAddress?: string
     fid?: number
     username?: string
+    signerUuid?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -14807,6 +16158,11 @@ export namespace Prisma {
     pfpUrl?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    isUuidApprove?: BoolNullableFilter<"User"> | boolean | null
+    signerRegDeadline?: DateTimeNullableFilter<"User"> | Date | string | null
+    signerPublicKey?: StringNullableFilter<"User"> | string | null
+    signerApprovalUrl?: StringNullableFilter<"User"> | string | null
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     isPremium?: BoolFilter<"User"> | boolean
     premiumExpiresAt?: DateTimeNullableFilter<"User"> | Date | string | null
     dmsSentThisWeek?: IntFilter<"User"> | number
@@ -14825,7 +16181,7 @@ export namespace Prisma {
     donations?: DonationListRelationFilter
     campaignPayments?: CampaignPaymentListRelationFilter
     securityEvents?: SecurityEventListRelationFilter
-  }, "id" | "walletAddress" | "fid" | "username">
+  }, "id" | "walletAddress" | "fid" | "username" | "signerUuid">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -14836,6 +16192,12 @@ export namespace Prisma {
     pfpUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    signerUuid?: SortOrderInput | SortOrder
+    isUuidApprove?: SortOrderInput | SortOrder
+    signerRegDeadline?: SortOrderInput | SortOrder
+    signerPublicKey?: SortOrderInput | SortOrder
+    signerApprovalUrl?: SortOrderInput | SortOrder
+    role?: SortOrder
     isPremium?: SortOrder
     premiumExpiresAt?: SortOrderInput | SortOrder
     dmsSentThisWeek?: SortOrder
@@ -14864,6 +16226,12 @@ export namespace Prisma {
     pfpUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    signerUuid?: StringNullableWithAggregatesFilter<"User"> | string | null
+    isUuidApprove?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
+    signerRegDeadline?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    signerPublicKey?: StringNullableWithAggregatesFilter<"User"> | string | null
+    signerApprovalUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     isPremium?: BoolWithAggregatesFilter<"User"> | boolean
     premiumExpiresAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     dmsSentThisWeek?: IntWithAggregatesFilter<"User"> | number
@@ -15149,6 +16517,85 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Campaign"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Campaign"> | Date | string
     creatorId?: StringWithAggregatesFilter<"Campaign"> | string
+  }
+
+  export type LaunchCampaignParticipantsWhereInput = {
+    AND?: LaunchCampaignParticipantsWhereInput | LaunchCampaignParticipantsWhereInput[]
+    OR?: LaunchCampaignParticipantsWhereInput[]
+    NOT?: LaunchCampaignParticipantsWhereInput | LaunchCampaignParticipantsWhereInput[]
+    id?: StringFilter<"LaunchCampaignParticipants"> | string
+    fid?: IntFilter<"LaunchCampaignParticipants"> | number
+    username?: StringFilter<"LaunchCampaignParticipants"> | string
+    email?: StringFilter<"LaunchCampaignParticipants"> | string
+    xHandle?: StringFilter<"LaunchCampaignParticipants"> | string
+    web3ContentWork?: Enumweb3ContentWorkFilter<"LaunchCampaignParticipants"> | $Enums.web3ContentWork
+    commitment?: BoolFilter<"LaunchCampaignParticipants"> | boolean
+    helpNeeded?: StringNullableFilter<"LaunchCampaignParticipants"> | string | null
+    storyTellingVibe?: StringFilter<"LaunchCampaignParticipants"> | string
+    userId?: StringFilter<"LaunchCampaignParticipants"> | string
+  }
+
+  export type LaunchCampaignParticipantsOrderByWithRelationInput = {
+    id?: SortOrder
+    fid?: SortOrder
+    username?: SortOrder
+    email?: SortOrder
+    xHandle?: SortOrder
+    web3ContentWork?: SortOrder
+    commitment?: SortOrder
+    helpNeeded?: SortOrderInput | SortOrder
+    storyTellingVibe?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type LaunchCampaignParticipantsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    fid?: number
+    username?: string
+    email?: string
+    xHandle?: string
+    AND?: LaunchCampaignParticipantsWhereInput | LaunchCampaignParticipantsWhereInput[]
+    OR?: LaunchCampaignParticipantsWhereInput[]
+    NOT?: LaunchCampaignParticipantsWhereInput | LaunchCampaignParticipantsWhereInput[]
+    web3ContentWork?: Enumweb3ContentWorkFilter<"LaunchCampaignParticipants"> | $Enums.web3ContentWork
+    commitment?: BoolFilter<"LaunchCampaignParticipants"> | boolean
+    helpNeeded?: StringNullableFilter<"LaunchCampaignParticipants"> | string | null
+    storyTellingVibe?: StringFilter<"LaunchCampaignParticipants"> | string
+    userId?: StringFilter<"LaunchCampaignParticipants"> | string
+  }, "id" | "fid" | "username" | "email" | "xHandle">
+
+  export type LaunchCampaignParticipantsOrderByWithAggregationInput = {
+    id?: SortOrder
+    fid?: SortOrder
+    username?: SortOrder
+    email?: SortOrder
+    xHandle?: SortOrder
+    web3ContentWork?: SortOrder
+    commitment?: SortOrder
+    helpNeeded?: SortOrderInput | SortOrder
+    storyTellingVibe?: SortOrder
+    userId?: SortOrder
+    _count?: LaunchCampaignParticipantsCountOrderByAggregateInput
+    _avg?: LaunchCampaignParticipantsAvgOrderByAggregateInput
+    _max?: LaunchCampaignParticipantsMaxOrderByAggregateInput
+    _min?: LaunchCampaignParticipantsMinOrderByAggregateInput
+    _sum?: LaunchCampaignParticipantsSumOrderByAggregateInput
+  }
+
+  export type LaunchCampaignParticipantsScalarWhereWithAggregatesInput = {
+    AND?: LaunchCampaignParticipantsScalarWhereWithAggregatesInput | LaunchCampaignParticipantsScalarWhereWithAggregatesInput[]
+    OR?: LaunchCampaignParticipantsScalarWhereWithAggregatesInput[]
+    NOT?: LaunchCampaignParticipantsScalarWhereWithAggregatesInput | LaunchCampaignParticipantsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LaunchCampaignParticipants"> | string
+    fid?: IntWithAggregatesFilter<"LaunchCampaignParticipants"> | number
+    username?: StringWithAggregatesFilter<"LaunchCampaignParticipants"> | string
+    email?: StringWithAggregatesFilter<"LaunchCampaignParticipants"> | string
+    xHandle?: StringWithAggregatesFilter<"LaunchCampaignParticipants"> | string
+    web3ContentWork?: Enumweb3ContentWorkWithAggregatesFilter<"LaunchCampaignParticipants"> | $Enums.web3ContentWork
+    commitment?: BoolWithAggregatesFilter<"LaunchCampaignParticipants"> | boolean
+    helpNeeded?: StringNullableWithAggregatesFilter<"LaunchCampaignParticipants"> | string | null
+    storyTellingVibe?: StringWithAggregatesFilter<"LaunchCampaignParticipants"> | string
+    userId?: StringWithAggregatesFilter<"LaunchCampaignParticipants"> | string
   }
 
   export type StreakWhereInput = {
@@ -15757,6 +17204,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -15786,6 +17239,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -15815,6 +17274,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -15844,6 +17309,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -15873,6 +17344,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -15893,6 +17370,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -15913,6 +17396,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -16236,6 +17725,97 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     creatorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LaunchCampaignParticipantsCreateInput = {
+    id?: string
+    fid: number
+    username: string
+    email: string
+    xHandle: string
+    web3ContentWork: $Enums.web3ContentWork
+    commitment: boolean
+    helpNeeded?: string | null
+    storyTellingVibe: string
+    userId: string
+  }
+
+  export type LaunchCampaignParticipantsUncheckedCreateInput = {
+    id?: string
+    fid: number
+    username: string
+    email: string
+    xHandle: string
+    web3ContentWork: $Enums.web3ContentWork
+    commitment: boolean
+    helpNeeded?: string | null
+    storyTellingVibe: string
+    userId: string
+  }
+
+  export type LaunchCampaignParticipantsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fid?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    xHandle?: StringFieldUpdateOperationsInput | string
+    web3ContentWork?: Enumweb3ContentWorkFieldUpdateOperationsInput | $Enums.web3ContentWork
+    commitment?: BoolFieldUpdateOperationsInput | boolean
+    helpNeeded?: NullableStringFieldUpdateOperationsInput | string | null
+    storyTellingVibe?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LaunchCampaignParticipantsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fid?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    xHandle?: StringFieldUpdateOperationsInput | string
+    web3ContentWork?: Enumweb3ContentWorkFieldUpdateOperationsInput | $Enums.web3ContentWork
+    commitment?: BoolFieldUpdateOperationsInput | boolean
+    helpNeeded?: NullableStringFieldUpdateOperationsInput | string | null
+    storyTellingVibe?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LaunchCampaignParticipantsCreateManyInput = {
+    id?: string
+    fid: number
+    username: string
+    email: string
+    xHandle: string
+    web3ContentWork: $Enums.web3ContentWork
+    commitment: boolean
+    helpNeeded?: string | null
+    storyTellingVibe: string
+    userId: string
+  }
+
+  export type LaunchCampaignParticipantsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fid?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    xHandle?: StringFieldUpdateOperationsInput | string
+    web3ContentWork?: Enumweb3ContentWorkFieldUpdateOperationsInput | $Enums.web3ContentWork
+    commitment?: BoolFieldUpdateOperationsInput | boolean
+    helpNeeded?: NullableStringFieldUpdateOperationsInput | string | null
+    storyTellingVibe?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LaunchCampaignParticipantsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fid?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    xHandle?: StringFieldUpdateOperationsInput | string
+    web3ContentWork?: Enumweb3ContentWorkFieldUpdateOperationsInput | $Enums.web3ContentWork
+    commitment?: BoolFieldUpdateOperationsInput | boolean
+    helpNeeded?: NullableStringFieldUpdateOperationsInput | string | null
+    storyTellingVibe?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StreakCreateInput = {
@@ -16963,9 +18543,9 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -16977,6 +18557,18 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type EnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type PostListRelationFilter = {
@@ -17083,6 +18675,12 @@ export namespace Prisma {
     pfpUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    signerUuid?: SortOrder
+    isUuidApprove?: SortOrder
+    signerRegDeadline?: SortOrder
+    signerPublicKey?: SortOrder
+    signerApprovalUrl?: SortOrder
+    role?: SortOrder
     isPremium?: SortOrder
     premiumExpiresAt?: SortOrder
     dmsSentThisWeek?: SortOrder
@@ -17110,6 +18708,12 @@ export namespace Prisma {
     pfpUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    signerUuid?: SortOrder
+    isUuidApprove?: SortOrder
+    signerRegDeadline?: SortOrder
+    signerPublicKey?: SortOrder
+    signerApprovalUrl?: SortOrder
+    role?: SortOrder
     isPremium?: SortOrder
     premiumExpiresAt?: SortOrder
     dmsSentThisWeek?: SortOrder
@@ -17130,6 +18734,12 @@ export namespace Prisma {
     pfpUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    signerUuid?: SortOrder
+    isUuidApprove?: SortOrder
+    signerRegDeadline?: SortOrder
+    signerPublicKey?: SortOrder
+    signerApprovalUrl?: SortOrder
+    role?: SortOrder
     isPremium?: SortOrder
     premiumExpiresAt?: SortOrder
     dmsSentThisWeek?: SortOrder
@@ -17182,12 +18792,12 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -17202,6 +18812,24 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type AutomationRuleCountOrderByAggregateInput = {
@@ -17444,6 +19072,70 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumCampaignStatusFilter<$PrismaModel>
     _max?: NestedEnumCampaignStatusFilter<$PrismaModel>
+  }
+
+  export type Enumweb3ContentWorkFilter<$PrismaModel = never> = {
+    equals?: $Enums.web3ContentWork | Enumweb3ContentWorkFieldRefInput<$PrismaModel>
+    in?: $Enums.web3ContentWork[] | ListEnumweb3ContentWorkFieldRefInput<$PrismaModel>
+    notIn?: $Enums.web3ContentWork[] | ListEnumweb3ContentWorkFieldRefInput<$PrismaModel>
+    not?: NestedEnumweb3ContentWorkFilter<$PrismaModel> | $Enums.web3ContentWork
+  }
+
+  export type LaunchCampaignParticipantsCountOrderByAggregateInput = {
+    id?: SortOrder
+    fid?: SortOrder
+    username?: SortOrder
+    email?: SortOrder
+    xHandle?: SortOrder
+    web3ContentWork?: SortOrder
+    commitment?: SortOrder
+    helpNeeded?: SortOrder
+    storyTellingVibe?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type LaunchCampaignParticipantsAvgOrderByAggregateInput = {
+    fid?: SortOrder
+  }
+
+  export type LaunchCampaignParticipantsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    fid?: SortOrder
+    username?: SortOrder
+    email?: SortOrder
+    xHandle?: SortOrder
+    web3ContentWork?: SortOrder
+    commitment?: SortOrder
+    helpNeeded?: SortOrder
+    storyTellingVibe?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type LaunchCampaignParticipantsMinOrderByAggregateInput = {
+    id?: SortOrder
+    fid?: SortOrder
+    username?: SortOrder
+    email?: SortOrder
+    xHandle?: SortOrder
+    web3ContentWork?: SortOrder
+    commitment?: SortOrder
+    helpNeeded?: SortOrder
+    storyTellingVibe?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type LaunchCampaignParticipantsSumOrderByAggregateInput = {
+    fid?: SortOrder
+  }
+
+  export type Enumweb3ContentWorkWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.web3ContentWork | Enumweb3ContentWorkFieldRefInput<$PrismaModel>
+    in?: $Enums.web3ContentWork[] | ListEnumweb3ContentWorkFieldRefInput<$PrismaModel>
+    notIn?: $Enums.web3ContentWork[] | ListEnumweb3ContentWorkFieldRefInput<$PrismaModel>
+    not?: NestedEnumweb3ContentWorkWithAggregatesFilter<$PrismaModel> | $Enums.web3ContentWork
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumweb3ContentWorkFilter<$PrismaModel>
+    _max?: NestedEnumweb3ContentWorkFilter<$PrismaModel>
   }
 
   export type EnumStreakStatusFilter<$PrismaModel = never> = {
@@ -18033,12 +19725,20 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type EnumUserRoleFieldUpdateOperationsInput = {
+    set?: $Enums.UserRole
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type PostUpdateManyWithoutUserNestedInput = {
@@ -18517,6 +20217,10 @@ export namespace Prisma {
     update?: XOR<XOR<CampaignPaymentUpdateToOneWithWhereWithoutCampaignInput, CampaignPaymentUpdateWithoutCampaignInput>, CampaignPaymentUncheckedUpdateWithoutCampaignInput>
   }
 
+  export type Enumweb3ContentWorkFieldUpdateOperationsInput = {
+    set?: $Enums.web3ContentWork
+  }
+
   export type CampaignCreateNestedOneWithoutStreaksInput = {
     create?: XOR<CampaignCreateWithoutStreaksInput, CampaignUncheckedCreateWithoutStreaksInput>
     connectOrCreate?: CampaignCreateOrConnectWithoutStreaksInput
@@ -18769,9 +20473,9 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -18783,6 +20487,18 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -18840,12 +20556,12 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -18860,6 +20576,24 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumCampaignFrequencyFilter<$PrismaModel = never> = {
@@ -18948,6 +20682,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumCampaignStatusFilter<$PrismaModel>
     _max?: NestedEnumCampaignStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumweb3ContentWorkFilter<$PrismaModel = never> = {
+    equals?: $Enums.web3ContentWork | Enumweb3ContentWorkFieldRefInput<$PrismaModel>
+    in?: $Enums.web3ContentWork[] | ListEnumweb3ContentWorkFieldRefInput<$PrismaModel>
+    notIn?: $Enums.web3ContentWork[] | ListEnumweb3ContentWorkFieldRefInput<$PrismaModel>
+    not?: NestedEnumweb3ContentWorkFilter<$PrismaModel> | $Enums.web3ContentWork
+  }
+
+  export type NestedEnumweb3ContentWorkWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.web3ContentWork | Enumweb3ContentWorkFieldRefInput<$PrismaModel>
+    in?: $Enums.web3ContentWork[] | ListEnumweb3ContentWorkFieldRefInput<$PrismaModel>
+    notIn?: $Enums.web3ContentWork[] | ListEnumweb3ContentWorkFieldRefInput<$PrismaModel>
+    not?: NestedEnumweb3ContentWorkWithAggregatesFilter<$PrismaModel> | $Enums.web3ContentWork
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumweb3ContentWorkFilter<$PrismaModel>
+    _max?: NestedEnumweb3ContentWorkFilter<$PrismaModel>
   }
 
   export type NestedEnumStreakStatusFilter<$PrismaModel = never> = {
@@ -19071,6 +20822,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -19099,6 +20856,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -19143,6 +20906,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -19171,6 +20940,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -19867,6 +21642,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -19895,6 +21676,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -19939,6 +21726,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -19967,6 +21760,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -19995,6 +21794,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -20023,6 +21828,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -20067,6 +21878,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -20095,6 +21912,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -20123,6 +21946,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -20151,6 +21980,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -20358,6 +22193,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -20386,6 +22227,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -20560,6 +22407,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -20588,6 +22441,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -20691,6 +22550,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -20719,6 +22584,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -20800,6 +22671,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -20828,6 +22705,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -20931,6 +22814,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -20959,6 +22848,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -21040,6 +22935,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -21068,6 +22969,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -21171,6 +23078,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -21199,6 +23112,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -21280,6 +23199,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -21308,6 +23233,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -21411,6 +23342,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -21439,6 +23376,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -21467,6 +23410,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -21495,6 +23444,12 @@ export namespace Prisma {
     pfpUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    signerUuid?: string | null
+    isUuidApprove?: boolean | null
+    signerRegDeadline?: Date | string | null
+    signerPublicKey?: string | null
+    signerApprovalUrl?: string | null
+    role?: $Enums.UserRole
     isPremium?: boolean
     premiumExpiresAt?: Date | string | null
     dmsSentThisWeek?: number
@@ -21539,6 +23494,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number
@@ -21567,6 +23528,12 @@ export namespace Prisma {
     pfpUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    isUuidApprove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    signerRegDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    signerPublicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    signerApprovalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     premiumExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dmsSentThisWeek?: IntFieldUpdateOperationsInput | number

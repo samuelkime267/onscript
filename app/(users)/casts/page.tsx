@@ -1,9 +1,11 @@
 import React from "react";
-import { scheduledCasts } from "@/data/casts.data";
-import CastCard from "@/features/cast/components/CastCard";
+// import { scheduledCasts } from "@/data/casts.data";
+// import CastCard from "@/features/cast/components/CastCard";
 import ScheduleCastNow from "@/features/cast/components/ScheduleCastNow";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { Lock } from "lucide-react";
+import ButtonAction from "@/components/ButtonAction";
 
 export default async function Casts() {
   const session = await auth();
@@ -31,13 +33,31 @@ export default async function Casts() {
           Scheduled casts
         </h3>
 
-        <div className="grid grid-cols-1 divide-y divide-neutral-100">
+        <div className="p-4 w-full">
+          <div className="p-8 border border-neutral-200 rounded-3xl flex items-center justify-center gap-4 flex-col w-full">
+            <div className="border border-neutral-100 p-4 rounded-full">
+              <Lock className="size-8" />
+            </div>
+            <p className="text-center text-neutral-700">
+              {"This feature is not available yet"}
+            </p>
+            <ButtonAction
+              btnType="primary"
+              className="flex items-center justify-center gap-2 w-fit px-8"
+            >
+              <Lock className="size-4 text-white" />
+              <p className="text-white">Coming soon</p>
+            </ButtonAction>
+          </div>
+        </div>
+
+        {/* <div className="grid grid-cols-1 divide-y divide-neutral-100">
           {scheduledCasts.map((cast, i) => {
             return (
               <CastCard key={i} {...cast} username={name} profilePic={image} />
             );
           })}
-        </div>
+        </div> */}
       </section>
     </main>
   );

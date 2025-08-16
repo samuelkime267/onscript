@@ -5,6 +5,7 @@ import { fonts } from "@/data/fonts.data";
 import "@coinbase/onchainkit/styles.css";
 import "@/styles/globals.css";
 import Navbar from "@/components/Navbar";
+import { Toaster } from "@/components/ui/sonner";
 
 export { generateMetadata, viewport };
 
@@ -17,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`bg-neutral-100 ${fonts}`}>
         <Providers>
+          <Toaster />
           <div className="max-w-xl mx-auto">
             <Navbar />
             {children}

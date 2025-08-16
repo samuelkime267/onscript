@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus } from "lucide-react";
+import { Lock, Plus } from "lucide-react";
 import React, { useState } from "react";
 import {
   AlertDialog,
@@ -15,38 +15,65 @@ import ButtonAction from "@/components/ButtonAction";
 import ImageInput from "@/components/ImageInput";
 import CastCard from "./CastCard";
 import { cn } from "@/lib/utils";
+import useCastModal from "../utils/useCastModal";
+import useCastParser from "../utils/useCastParser";
+import { useByteLimitedText } from "../utils/useBytesLimitedText";
 
 type ScheduleCastModalProps = {
   profilePic?: string | null;
   username?: string | null;
-};
-type PathDisplayed = "preview-cast" | "create-cast";
-const titles: Record<PathDisplayed, string> = {
-  "preview-cast": "Preview Cast",
-  "create-cast": "New Cast",
 };
 
 export default function ScheduleCastModal({
   profilePic,
   username,
 }: ScheduleCastModalProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [pathDisplayed, setPathDisplayed] =
-    useState<PathDisplayed>("create-cast");
-  const [files, setFiles] = useState<File[]>([]);
-  const [cast, setCast] = useState({
-    text: "",
-    imgs: [] as string[],
-  });
-  const MAX_IMAGES = 4;
-  const inputArr = [...Array(MAX_IMAGES)];
+  const {
+    cast,
+    files,
+    inputArr,
+    pathDisplayed,
+    setPathDisplayed,
+    isModalOpen,
+    setIsModalOpen,
+    setCast,
+    setFiles,
+    resetModal,
+    titles,
+  } = useCastModal();
+  const { castData, parseCast } = useCastParser();
+  const { handleChange, text } = useByteLimitedText();
+  const [isLoading, setIsLoading] = useState(false);
+  const handlePublish = async () => {
+    setIsLoading(true);
+    const res = await fetch("/api/cast/publish", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(castData),
+    });
 
-  const resetModal = (isOpen: boolean) => {
-    setIsModalOpen(isOpen);
-    setCast({ text: "", imgs: [] });
-    setPathDisplayed("create-cast");
-    if (isOpen) setFiles([]);
+    if (!res.ok) {
+      console.log("error", await res.json());
+      setIsLoading(false);
+      return;
+    }
+
+    console.log("success", await res.json());
+    setIsLoading(false);
+    // resetModal(false);
   };
+
+  return (
+    <ButtonAction
+      btnType="primary"
+      className="flex items-center justify-center gap-2 w-fit px-8"
+    >
+      <Lock className="size-4 text-white" />
+      <p className="text-white">Coming soon</p>
+    </ButtonAction>
+  );
 
   return (
     <AlertDialog open={isModalOpen} onOpenChange={resetModal}>
@@ -88,7 +115,8 @@ export default function ScheduleCastModal({
           })}
         >
           <TextArea
-            onChange={(e) => setCast({ ...cast, text: e.target.value })}
+            onChange={handleChange}
+            value={text}
             placeholder="Share a thought, an idea, or a story…"
           />
           <div className="grid grid-cols-4 gap-2 w-full">
@@ -119,7 +147,8 @@ export default function ScheduleCastModal({
 
         {pathDisplayed === "preview-cast" && (
           <CastCard
-            {...cast}
+            imgs={cast.imgs}
+            text={text}
             username={username}
             profilePic={profilePic}
             className="p-0"
@@ -136,15 +165,24 @@ export default function ScheduleCastModal({
             Save to draft
           </ButtonAction>
           <ButtonAction
+            disabled={isLoading}
             onClick={() => {
-              if (pathDisplayed === "create-cast")
+              if (pathDisplayed === "create-cast") {
                 setPathDisplayed("preview-cast");
-              else setIsModalOpen(false);
+                parseCast(text);
+              } else {
+                handlePublish();
+                // setIsModalOpen(false);
+              }
             }}
             btnType="primary"
             className="w-full"
           >
-            {pathDisplayed === "create-cast" ? "Preview cast" : "Schedule cast"}
+            {isLoading
+              ? "loading"
+              : pathDisplayed === "create-cast"
+                ? "Preview cast"
+                : "Schedule cast"}
           </ButtonAction>
         </div>
       </AlertDialogContent>

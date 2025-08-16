@@ -1,17 +1,15 @@
 import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 import ButtonAction from "@/components/ButtonAction";
 import StatusCard from "@/components/StatusCard";
 import campaigns from "@/data/campaigns.data";
-import { scheduledCasts } from "@/data/casts.data";
-import CastCard from "@/features/cast/components/CastCard";
+// import { scheduledCasts } from "@/data/casts.data";
+// import CastCard from "@/features/cast/components/CastCard";
 import ScheduleCastNow from "@/features/cast/components/ScheduleCastNow";
-import { formatScheduleDate } from "@/utils";
-import { Archive, CalendarClock, LucideSend } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import React, { Fragment } from "react";
+import { Archive, CalendarClock, Lock, LucideSend } from "lucide-react";
+import React from "react";
 import { TbSpeakerphone } from "react-icons/tb";
+import { CampaignCard } from "@/features/campaign/components";
 
 export default async function Dashboard() {
   const session = await auth();
@@ -30,20 +28,32 @@ export default async function Dashboard() {
 
   // const { name, image } = mockUserData;
 
-  const pendingCastsShown = 3;
-  const pendingCasts = scheduledCasts.slice(0, pendingCastsShown);
+  // const pendingCastsShown = 3;
+  // const pendingCasts = scheduledCasts.slice(0, pendingCastsShown);
 
   return (
-    <main className="text-black p-4 bg-neutral-100 min-h-screen flex items-start justify-start flex-col w-full gap-4">
+    <main className="text-black p-4 flex items-start justify-start flex-col w-full gap-4">
       <h1 className="font-semibold text-2xl h-fit normal-case">
         Welcome, {name}
       </h1>
 
       <section className="w-full grid grid-cols-2 gap-4">
-        <StatusCard Icon={LucideSend} value={10} text="Sent casts" />
-        <StatusCard Icon={CalendarClock} value={10} text="Queued casts" />
-        <StatusCard Icon={TbSpeakerphone} value={2} text="Active campaign" />
-        <StatusCard Icon={Archive} value={26} text="Drafts" />
+        <StatusCard Icon={LucideSend} value={0} text="Sent casts" />
+        <StatusCard Icon={CalendarClock} value={0} text="Queued casts" />
+        <StatusCard Icon={TbSpeakerphone} value={0} text="Active campaign" />
+        <StatusCard Icon={Archive} value={0} text="Drafts" />
+      </section>
+
+      <section className="w-full bg-white rounded-3xl flex items-center justify-center flex-col shadow-xl shadow-black/[0.05]">
+        <h3 className="font-medium text-xl capitalize text-left w-full p-4 pb-0">
+          Active Campaigns
+        </h3>
+
+        <div className="w-full grid grid-cols-1 gap-4 p-4">
+          {campaigns.map((campaign, i) => {
+            return <CampaignCard key={i} {...campaign} />;
+          })}
+        </div>
       </section>
 
       <ScheduleCastNow profilePic={image} username={name} />
@@ -53,78 +63,39 @@ export default async function Dashboard() {
           Scheduled casts
         </h3>
 
-        <div className="grid grid-cols-1 divide-y divide-neutral-100">
+        <div className="p-4 w-full">
+          <div className="p-8 border border-neutral-200 rounded-3xl flex items-center justify-center gap-4 flex-col w-full">
+            <div className="border border-neutral-100 p-4 rounded-full">
+              <Lock className="size-8" />
+            </div>
+            <p className="text-center text-neutral-700">
+              {"This feature is not available yet"}
+            </p>
+            <ButtonAction
+              btnType="primary"
+              className="flex items-center justify-center gap-2 w-fit px-8"
+            >
+              <Lock className="size-4 text-white" />
+              <p className="text-white">Coming soon</p>
+            </ButtonAction>
+          </div>
+        </div>
+
+        {/* <div className="grid grid-cols-1 divide-y divide-neutral-100">
           {pendingCasts.map((cast, i) => {
             return (
               <CastCard key={i} {...cast} username={name} profilePic={image} />
             );
           })}
-        </div>
+        </div> */}
 
-        <div className="p-4">
+        {/* <div className="p-4">
           <Link href={"/casts"}>
             <ButtonAction btnType="primary" className="w-fit px-8">
               See all
             </ButtonAction>
           </Link>
-        </div>
-      </section>
-
-      <section className="w-full bg-white rounded-3xl flex items-center justify-center flex-col shadow-xl shadow-black/[0.05]">
-        <h3 className="font-medium text-xl capitalize text-left w-full p-4 pb-0">
-          Active Campaigns
-        </h3>
-
-        <div className="grid grid-cols-1 gap-4 p-4">
-          {campaigns.map(
-            ({ name, images, endDate, description, isOpen }, i) => {
-              return (
-                <Fragment key={i}>
-                  <div className="flex items-start justify-start gap-4 flex-col relative aspect-[4/5] w-full rounded-2xl overflow-hidden">
-                    <div className="w-full h-full">
-                      <Image
-                        src={images[0]}
-                        alt={name}
-                        width={450}
-                        height={450}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-
-                    <div className="absolute top-0 left-0 w-full h-full p-4 flex items-start justify-end gap-2 flex-col bg-black/70">
-                      <ButtonAction
-                        btnType="badge"
-                        className="text-white border-white/20 bg-white/8 backdrop-blur-md hover:bg-white/15 mb-auto ml-auto rounded-full overflow-hidden"
-                      >
-                        {isOpen ? "Open" : "Closed"}
-                      </ButtonAction>
-                      <h4 className="font-semibold text-white text-xl capitalize">
-                        {name}
-                      </h4>
-                      <p className="text-xs text-gray-300/90">{description}</p>
-                      <div>
-                        <ButtonAction
-                          btnType="badge"
-                          className="text-white border-white/20 bg-white/8 backdrop-blur-md hover:bg-white/15"
-                        >
-                          Ends: {formatScheduleDate(endDate)}
-                        </ButtonAction>
-                      </div>
-                    </div>
-                  </div>
-                </Fragment>
-              );
-            },
-          )}
-        </div>
-
-        <div className="p-4">
-          <Link href={"/campaigns"}>
-            <ButtonAction btnType="primary" className="w-fit px-8">
-              See all
-            </ButtonAction>
-          </Link>
-        </div>
+        </div> */}
       </section>
     </main>
   );
