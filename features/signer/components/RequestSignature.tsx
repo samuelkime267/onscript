@@ -19,9 +19,9 @@ export default function RequestSignature({ id }: RequestSignatureProps) {
   const startPolling = useCallback(() => {
     setIsPolling(true);
   }, []);
-  const stopPolling = useCallback(() => {
-    setIsPolling(false);
-  }, []);
+  // const stopPolling = useCallback(() => {
+  //   setIsPolling(false);
+  // }, []);
 
   useEffect(() => {
     if (!signerUuid || !isPolling) return;
@@ -34,8 +34,6 @@ export default function RequestSignature({ id }: RequestSignatureProps) {
         console.log("error", error);
         setInitiateSignerErr(error.error);
         setIsFetching(false);
-        retryCount++;
-        count++;
         return;
       }
 
