@@ -72,8 +72,6 @@ export default function useLogin() {
     try {
       const response = await fetch(`/api/user?address=${address}`);
       if (response.ok) {
-        console.log("user exists");
-
         const nonce = generateNonce();
         const result = await signInViaFarcaster({ nonce });
 
@@ -82,9 +80,6 @@ export default function useLogin() {
 
           const fidMatch = result.message.match(/farcaster:\/\/fid\/(\d+)/);
           const fid = fidMatch ? Number(fidMatch[1]) : null;
-
-          console.log("user found", { result });
-          console.log("user found", { message, signature, fid });
 
           if (!fid) {
             setIsError("FID not found in message");
