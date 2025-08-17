@@ -58,25 +58,25 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
 
   // always comment the cookies if pushing to prod
-  cookies: {
-    sessionToken: {
-      name: `__Secure-next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax", // ✅ correct for normal prod apps
-        secure: true, // ✅ because you're on https://
-        path: "/",
-      },
-    },
-    // csrfToken: {
-    //   name: "__Host-next-auth.csrf-token",
-    //   options: {
-    //     httpOnly: false,
-    //     sameSite: "none",
-    //     secure: true,
-    //   },
-    // },
-  },
+  // cookies: {
+  //   sessionToken: {
+  //     name: `__Secure-next-auth.session-token`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: "lax", // ✅ correct for normal prod apps
+  //       secure: true, // ✅ because you're on https://
+  //       path: "/",
+  //     },
+  //   },
+  //   // csrfToken: {
+  //   //   name: "__Host-next-auth.csrf-token",
+  //   //   options: {
+  //   //     httpOnly: false,
+  //   //     sameSite: "none",
+  //   //     secure: true,
+  //   //   },
+  //   // },
+  // },
   // eslint-disable-next-line
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
