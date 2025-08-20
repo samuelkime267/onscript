@@ -68,14 +68,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   //       path: "/",
   //     },
   //   },
-  //   // csrfToken: {
-  //   //   name: "__Host-next-auth.csrf-token",
-  //   //   options: {
-  //   //     httpOnly: false,
-  //   //     sameSite: "none",
-  //   //     secure: true,
-  //   //   },
-  //   // },
+  //   csrfToken: {
+  //     name: "__Host-next-auth.csrf-token",
+  //     options: {
+  //       httpOnly: false,
+  //       sameSite: "none",
+  //       secure: true,
+  //     },
+  //   },
   // },
   // eslint-disable-next-line
   adapter: PrismaAdapter(db),

@@ -26,3 +26,12 @@ export const getUserByFid = async (fid: number) => {
   });
   return user;
 };
+
+export const getPostByQstashMessageId = async (qstashMessageId: string) => {
+  const post = await db.post.findUnique({
+    where: {
+      qstashMessageId,
+    },
+  });
+  return post;
+};

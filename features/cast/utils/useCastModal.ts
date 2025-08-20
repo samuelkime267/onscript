@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import useCastParserNeynar from "./useCasterParserNeynar";
+import { useByteLimitedText } from "./useBytesLimitedText";
 
-type PathDisplayed = "preview-cast" | "create-cast";
+export type PathDisplayed = "preview-cast" | "create-cast";
 const titles: Record<PathDisplayed, string> = {
   "preview-cast": "Preview Cast",
   "create-cast": "New Cast",
@@ -13,19 +15,49 @@ export default function useCastModal() {
   const [pathDisplayed, setPathDisplayed] =
     useState<PathDisplayed>("create-cast");
   const [files, setFiles] = useState<File[]>([]);
-  const [cast, setCast] = useState({
-    text: "",
-    imgs: [] as string[],
-  });
+  const [castImgs, setCastImgs] = useState<string[]>([]);
   const MAX_IMAGES = 4;
-  const inputArr = [...Array(MAX_IMAGES)];
+  const inputArr: undefined[] = [...Array(MAX_IMAGES)];
+
+  const { castData, parseCast } = useCastParserNeynar();
+  const { handleChange, text } = useByteLimitedText();
+  const [isLoading, setIsLoading] = useState(false);
 
   const resetModal = (isOpen: boolean) => {
     setIsModalOpen(isOpen);
-    setCast({ text: "", imgs: [] });
+    parseCast("");
     setPathDisplayed("create-cast");
     if (isOpen) setFiles([]);
   };
+
+  const finalEmbed = [...castData.embeds, ...castImgs.map((url) => ({ url }))];
+  const finalData = {
+    ...castData,
+    embeds: finalEmbed,
+  };
+
+  const handlePublish = useCallback(async () => {
+    console.log("castData", castData);
+
+    // setIsLoading(true);
+    // const res = await fetch("/api/cast/publish", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(castData),
+    // });
+
+    // if (!res.ok) {
+    //   console.log("error", await res.json());
+    //   setIsLoading(false);
+    //   return;
+    // }
+
+    // console.log("success", await res.json());
+    // setIsLoading(false);
+    // // resetModal(false);
+  }, [castData]);
 
   return {
     isModalOpen,
@@ -34,11 +66,18 @@ export default function useCastModal() {
     setPathDisplayed,
     files,
     setFiles,
-    cast,
-    setCast,
     MAX_IMAGES,
     inputArr,
     resetModal,
     titles,
+    castData,
+    parseCast,
+    handleChange,
+    text,
+    isLoading,
+    handlePublish,
+    setCastImgs,
+    castImgs,
+    finalData,
   };
 }

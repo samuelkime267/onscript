@@ -73,7 +73,17 @@ export type SecurityEvent = $Result.DefaultSelection<Prisma.$SecurityEventPayloa
  * Enums
  */
 export namespace $Enums {
-  export const UserRole: {
+  export const PostStatus: {
+  DRAFT: 'DRAFT',
+  SCHEDULED: 'SCHEDULED',
+  PUBLISHED: 'PUBLISHED',
+  FAILED: 'FAILED'
+};
+
+export type PostStatus = (typeof PostStatus)[keyof typeof PostStatus]
+
+
+export const UserRole: {
   ADMIN: 'ADMIN',
   USER: 'USER'
 };
@@ -88,15 +98,6 @@ export const web3ContentWork: {
 };
 
 export type web3ContentWork = (typeof web3ContentWork)[keyof typeof web3ContentWork]
-
-
-export const PostStatus: {
-  DRAFT: 'DRAFT',
-  SCHEDULED: 'SCHEDULED',
-  PUBLISHED: 'PUBLISHED'
-};
-
-export type PostStatus = (typeof PostStatus)[keyof typeof PostStatus]
 
 
 export const CampaignFrequency: {
@@ -172,6 +173,10 @@ export type SecuritySeverity = (typeof SecuritySeverity)[keyof typeof SecuritySe
 
 }
 
+export type PostStatus = $Enums.PostStatus
+
+export const PostStatus: typeof $Enums.PostStatus
+
 export type UserRole = $Enums.UserRole
 
 export const UserRole: typeof $Enums.UserRole
@@ -179,10 +184,6 @@ export const UserRole: typeof $Enums.UserRole
 export type web3ContentWork = $Enums.web3ContentWork
 
 export const web3ContentWork: typeof $Enums.web3ContentWork
-
-export type PostStatus = $Enums.PostStatus
-
-export const PostStatus: typeof $Enums.PostStatus
 
 export type CampaignFrequency = $Enums.CampaignFrequency
 
@@ -2092,16 +2093,32 @@ export namespace Prisma {
 
   export type AggregatePost = {
     _count: PostCountAggregateOutputType | null
+    _avg: PostAvgAggregateOutputType | null
+    _sum: PostSumAggregateOutputType | null
     _min: PostMinAggregateOutputType | null
     _max: PostMaxAggregateOutputType | null
   }
 
+  export type PostAvgAggregateOutputType = {
+    parentAuthorFid: number | null
+  }
+
+  export type PostSumAggregateOutputType = {
+    parentAuthorFid: number | null
+  }
+
   export type PostMinAggregateOutputType = {
     id: string | null
-    title: string | null
-    content: string | null
-    publishDate: Date | null
+    signerUuid: string | null
+    text: string | null
+    parent: string | null
+    channelId: string | null
+    parentAuthorFid: number | null
+    postHash: string | null
     status: $Enums.PostStatus | null
+    scheduledAt: Date | null
+    publishedAt: Date | null
+    qstashMessageId: string | null
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
@@ -2109,10 +2126,16 @@ export namespace Prisma {
 
   export type PostMaxAggregateOutputType = {
     id: string | null
-    title: string | null
-    content: string | null
-    publishDate: Date | null
+    signerUuid: string | null
+    text: string | null
+    parent: string | null
+    channelId: string | null
+    parentAuthorFid: number | null
+    postHash: string | null
     status: $Enums.PostStatus | null
+    scheduledAt: Date | null
+    publishedAt: Date | null
+    qstashMessageId: string | null
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
@@ -2120,10 +2143,17 @@ export namespace Prisma {
 
   export type PostCountAggregateOutputType = {
     id: number
-    title: number
-    content: number
-    publishDate: number
+    signerUuid: number
+    text: number
+    parent: number
+    channelId: number
+    parentAuthorFid: number
+    embeds: number
+    postHash: number
     status: number
+    scheduledAt: number
+    publishedAt: number
+    qstashMessageId: number
     createdAt: number
     updatedAt: number
     userId: number
@@ -2131,12 +2161,26 @@ export namespace Prisma {
   }
 
 
+  export type PostAvgAggregateInputType = {
+    parentAuthorFid?: true
+  }
+
+  export type PostSumAggregateInputType = {
+    parentAuthorFid?: true
+  }
+
   export type PostMinAggregateInputType = {
     id?: true
-    title?: true
-    content?: true
-    publishDate?: true
+    signerUuid?: true
+    text?: true
+    parent?: true
+    channelId?: true
+    parentAuthorFid?: true
+    postHash?: true
     status?: true
+    scheduledAt?: true
+    publishedAt?: true
+    qstashMessageId?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
@@ -2144,10 +2188,16 @@ export namespace Prisma {
 
   export type PostMaxAggregateInputType = {
     id?: true
-    title?: true
-    content?: true
-    publishDate?: true
+    signerUuid?: true
+    text?: true
+    parent?: true
+    channelId?: true
+    parentAuthorFid?: true
+    postHash?: true
     status?: true
+    scheduledAt?: true
+    publishedAt?: true
+    qstashMessageId?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
@@ -2155,10 +2205,17 @@ export namespace Prisma {
 
   export type PostCountAggregateInputType = {
     id?: true
-    title?: true
-    content?: true
-    publishDate?: true
+    signerUuid?: true
+    text?: true
+    parent?: true
+    channelId?: true
+    parentAuthorFid?: true
+    embeds?: true
+    postHash?: true
     status?: true
+    scheduledAt?: true
+    publishedAt?: true
+    qstashMessageId?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
@@ -2203,6 +2260,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: PostAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PostSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: PostMinAggregateInputType
@@ -2233,20 +2302,31 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: PostCountAggregateInputType | true
+    _avg?: PostAvgAggregateInputType
+    _sum?: PostSumAggregateInputType
     _min?: PostMinAggregateInputType
     _max?: PostMaxAggregateInputType
   }
 
   export type PostGroupByOutputType = {
     id: string
-    title: string
-    content: string
-    publishDate: Date
+    signerUuid: string
+    text: string | null
+    parent: string | null
+    channelId: string | null
+    parentAuthorFid: number | null
+    embeds: JsonValue | null
+    postHash: string | null
     status: $Enums.PostStatus
+    scheduledAt: Date | null
+    publishedAt: Date | null
+    qstashMessageId: string | null
     createdAt: Date
     updatedAt: Date
     userId: string
     _count: PostCountAggregateOutputType | null
+    _avg: PostAvgAggregateOutputType | null
+    _sum: PostSumAggregateOutputType | null
     _min: PostMinAggregateOutputType | null
     _max: PostMaxAggregateOutputType | null
   }
@@ -2267,10 +2347,17 @@ export namespace Prisma {
 
   export type PostSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    content?: boolean
-    publishDate?: boolean
+    signerUuid?: boolean
+    text?: boolean
+    parent?: boolean
+    channelId?: boolean
+    parentAuthorFid?: boolean
+    embeds?: boolean
+    postHash?: boolean
     status?: boolean
+    scheduledAt?: boolean
+    publishedAt?: boolean
+    qstashMessageId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
@@ -2279,10 +2366,17 @@ export namespace Prisma {
 
   export type PostSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    content?: boolean
-    publishDate?: boolean
+    signerUuid?: boolean
+    text?: boolean
+    parent?: boolean
+    channelId?: boolean
+    parentAuthorFid?: boolean
+    embeds?: boolean
+    postHash?: boolean
     status?: boolean
+    scheduledAt?: boolean
+    publishedAt?: boolean
+    qstashMessageId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
@@ -2291,10 +2385,17 @@ export namespace Prisma {
 
   export type PostSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    content?: boolean
-    publishDate?: boolean
+    signerUuid?: boolean
+    text?: boolean
+    parent?: boolean
+    channelId?: boolean
+    parentAuthorFid?: boolean
+    embeds?: boolean
+    postHash?: boolean
     status?: boolean
+    scheduledAt?: boolean
+    publishedAt?: boolean
+    qstashMessageId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
@@ -2303,16 +2404,23 @@ export namespace Prisma {
 
   export type PostSelectScalar = {
     id?: boolean
-    title?: boolean
-    content?: boolean
-    publishDate?: boolean
+    signerUuid?: boolean
+    text?: boolean
+    parent?: boolean
+    channelId?: boolean
+    parentAuthorFid?: boolean
+    embeds?: boolean
+    postHash?: boolean
     status?: boolean
+    scheduledAt?: boolean
+    publishedAt?: boolean
+    qstashMessageId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
   }
 
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "publishDate" | "status" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["post"]>
+  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "signerUuid" | "text" | "parent" | "channelId" | "parentAuthorFid" | "embeds" | "postHash" | "status" | "scheduledAt" | "publishedAt" | "qstashMessageId" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["post"]>
   export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -2330,10 +2438,17 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      title: string
-      content: string
-      publishDate: Date
+      signerUuid: string
+      text: string | null
+      parent: string | null
+      channelId: string | null
+      parentAuthorFid: number | null
+      embeds: Prisma.JsonValue | null
+      postHash: string | null
       status: $Enums.PostStatus
+      scheduledAt: Date | null
+      publishedAt: Date | null
+      qstashMessageId: string | null
       createdAt: Date
       updatedAt: Date
       userId: string
@@ -2762,10 +2877,17 @@ export namespace Prisma {
    */
   interface PostFieldRefs {
     readonly id: FieldRef<"Post", 'String'>
-    readonly title: FieldRef<"Post", 'String'>
-    readonly content: FieldRef<"Post", 'String'>
-    readonly publishDate: FieldRef<"Post", 'DateTime'>
+    readonly signerUuid: FieldRef<"Post", 'String'>
+    readonly text: FieldRef<"Post", 'String'>
+    readonly parent: FieldRef<"Post", 'String'>
+    readonly channelId: FieldRef<"Post", 'String'>
+    readonly parentAuthorFid: FieldRef<"Post", 'Int'>
+    readonly embeds: FieldRef<"Post", 'Json'>
+    readonly postHash: FieldRef<"Post", 'String'>
     readonly status: FieldRef<"Post", 'PostStatus'>
+    readonly scheduledAt: FieldRef<"Post", 'DateTime'>
+    readonly publishedAt: FieldRef<"Post", 'DateTime'>
+    readonly qstashMessageId: FieldRef<"Post", 'String'>
     readonly createdAt: FieldRef<"Post", 'DateTime'>
     readonly updatedAt: FieldRef<"Post", 'DateTime'>
     readonly userId: FieldRef<"Post", 'String'>
@@ -15557,10 +15679,17 @@ export namespace Prisma {
 
   export const PostScalarFieldEnum: {
     id: 'id',
-    title: 'title',
-    content: 'content',
-    publishDate: 'publishDate',
+    signerUuid: 'signerUuid',
+    text: 'text',
+    parent: 'parent',
+    channelId: 'channelId',
+    parentAuthorFid: 'parentAuthorFid',
+    embeds: 'embeds',
+    postHash: 'postHash',
     status: 'status',
+    scheduledAt: 'scheduledAt',
+    publishedAt: 'publishedAt',
+    qstashMessageId: 'qstashMessageId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     userId: 'userId'
@@ -15775,12 +15904,29 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   export const NullsOrder: {
@@ -15811,16 +15957,30 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
+   * Reference to a field of type 'Int'
    */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
   /**
-   * Reference to a field of type 'DateTime[]'
+   * Reference to a field of type 'Int[]'
    */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -15839,16 +15999,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'DateTime'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'DateTime[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -16021,10 +16181,17 @@ export namespace Prisma {
     OR?: PostWhereInput[]
     NOT?: PostWhereInput | PostWhereInput[]
     id?: StringFilter<"Post"> | string
-    title?: StringFilter<"Post"> | string
-    content?: StringFilter<"Post"> | string
-    publishDate?: DateTimeFilter<"Post"> | Date | string
+    signerUuid?: StringFilter<"Post"> | string
+    text?: StringNullableFilter<"Post"> | string | null
+    parent?: StringNullableFilter<"Post"> | string | null
+    channelId?: StringNullableFilter<"Post"> | string | null
+    parentAuthorFid?: IntNullableFilter<"Post"> | number | null
+    embeds?: JsonNullableFilter<"Post">
+    postHash?: StringNullableFilter<"Post"> | string | null
     status?: EnumPostStatusFilter<"Post"> | $Enums.PostStatus
+    scheduledAt?: DateTimeNullableFilter<"Post"> | Date | string | null
+    publishedAt?: DateTimeNullableFilter<"Post"> | Date | string | null
+    qstashMessageId?: StringNullableFilter<"Post"> | string | null
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
     userId?: StringFilter<"Post"> | string
@@ -16033,10 +16200,17 @@ export namespace Prisma {
 
   export type PostOrderByWithRelationInput = {
     id?: SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    publishDate?: SortOrder
+    signerUuid?: SortOrder
+    text?: SortOrderInput | SortOrder
+    parent?: SortOrderInput | SortOrder
+    channelId?: SortOrderInput | SortOrder
+    parentAuthorFid?: SortOrderInput | SortOrder
+    embeds?: SortOrderInput | SortOrder
+    postHash?: SortOrderInput | SortOrder
     status?: SortOrder
+    scheduledAt?: SortOrderInput | SortOrder
+    publishedAt?: SortOrderInput | SortOrder
+    qstashMessageId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
@@ -16045,31 +16219,47 @@ export namespace Prisma {
 
   export type PostWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    postHash?: string
+    qstashMessageId?: string
     AND?: PostWhereInput | PostWhereInput[]
     OR?: PostWhereInput[]
     NOT?: PostWhereInput | PostWhereInput[]
-    title?: StringFilter<"Post"> | string
-    content?: StringFilter<"Post"> | string
-    publishDate?: DateTimeFilter<"Post"> | Date | string
+    signerUuid?: StringFilter<"Post"> | string
+    text?: StringNullableFilter<"Post"> | string | null
+    parent?: StringNullableFilter<"Post"> | string | null
+    channelId?: StringNullableFilter<"Post"> | string | null
+    parentAuthorFid?: IntNullableFilter<"Post"> | number | null
+    embeds?: JsonNullableFilter<"Post">
     status?: EnumPostStatusFilter<"Post"> | $Enums.PostStatus
+    scheduledAt?: DateTimeNullableFilter<"Post"> | Date | string | null
+    publishedAt?: DateTimeNullableFilter<"Post"> | Date | string | null
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
     userId?: StringFilter<"Post"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "postHash" | "qstashMessageId">
 
   export type PostOrderByWithAggregationInput = {
     id?: SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    publishDate?: SortOrder
+    signerUuid?: SortOrder
+    text?: SortOrderInput | SortOrder
+    parent?: SortOrderInput | SortOrder
+    channelId?: SortOrderInput | SortOrder
+    parentAuthorFid?: SortOrderInput | SortOrder
+    embeds?: SortOrderInput | SortOrder
+    postHash?: SortOrderInput | SortOrder
     status?: SortOrder
+    scheduledAt?: SortOrderInput | SortOrder
+    publishedAt?: SortOrderInput | SortOrder
+    qstashMessageId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
     _count?: PostCountOrderByAggregateInput
+    _avg?: PostAvgOrderByAggregateInput
     _max?: PostMaxOrderByAggregateInput
     _min?: PostMinOrderByAggregateInput
+    _sum?: PostSumOrderByAggregateInput
   }
 
   export type PostScalarWhereWithAggregatesInput = {
@@ -16077,10 +16267,17 @@ export namespace Prisma {
     OR?: PostScalarWhereWithAggregatesInput[]
     NOT?: PostScalarWhereWithAggregatesInput | PostScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Post"> | string
-    title?: StringWithAggregatesFilter<"Post"> | string
-    content?: StringWithAggregatesFilter<"Post"> | string
-    publishDate?: DateTimeWithAggregatesFilter<"Post"> | Date | string
+    signerUuid?: StringWithAggregatesFilter<"Post"> | string
+    text?: StringNullableWithAggregatesFilter<"Post"> | string | null
+    parent?: StringNullableWithAggregatesFilter<"Post"> | string | null
+    channelId?: StringNullableWithAggregatesFilter<"Post"> | string | null
+    parentAuthorFid?: IntNullableWithAggregatesFilter<"Post"> | number | null
+    embeds?: JsonNullableWithAggregatesFilter<"Post">
+    postHash?: StringNullableWithAggregatesFilter<"Post"> | string | null
     status?: EnumPostStatusWithAggregatesFilter<"Post"> | $Enums.PostStatus
+    scheduledAt?: DateTimeNullableWithAggregatesFilter<"Post"> | Date | string | null
+    publishedAt?: DateTimeNullableWithAggregatesFilter<"Post"> | Date | string | null
+    qstashMessageId?: StringNullableWithAggregatesFilter<"Post"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     userId?: StringWithAggregatesFilter<"Post"> | string
@@ -17140,10 +17337,17 @@ export namespace Prisma {
 
   export type PostCreateInput = {
     id?: string
-    title: string
-    content: string
-    publishDate: Date | string
+    signerUuid: string
+    text?: string | null
+    parent?: string | null
+    channelId?: string | null
+    parentAuthorFid?: number | null
+    embeds?: NullableJsonNullValueInput | InputJsonValue
+    postHash?: string | null
     status?: $Enums.PostStatus
+    scheduledAt?: Date | string | null
+    publishedAt?: Date | string | null
+    qstashMessageId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutPostsInput
@@ -17151,10 +17355,17 @@ export namespace Prisma {
 
   export type PostUncheckedCreateInput = {
     id?: string
-    title: string
-    content: string
-    publishDate: Date | string
+    signerUuid: string
+    text?: string | null
+    parent?: string | null
+    channelId?: string | null
+    parentAuthorFid?: number | null
+    embeds?: NullableJsonNullValueInput | InputJsonValue
+    postHash?: string | null
     status?: $Enums.PostStatus
+    scheduledAt?: Date | string | null
+    publishedAt?: Date | string | null
+    qstashMessageId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
@@ -17162,10 +17373,17 @@ export namespace Prisma {
 
   export type PostUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: StringFieldUpdateOperationsInput | string
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentAuthorFid?: NullableIntFieldUpdateOperationsInput | number | null
+    embeds?: NullableJsonNullValueInput | InputJsonValue
+    postHash?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPostsNestedInput
@@ -17173,10 +17391,17 @@ export namespace Prisma {
 
   export type PostUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: StringFieldUpdateOperationsInput | string
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentAuthorFid?: NullableIntFieldUpdateOperationsInput | number | null
+    embeds?: NullableJsonNullValueInput | InputJsonValue
+    postHash?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -17184,10 +17409,17 @@ export namespace Prisma {
 
   export type PostCreateManyInput = {
     id?: string
-    title: string
-    content: string
-    publishDate: Date | string
+    signerUuid: string
+    text?: string | null
+    parent?: string | null
+    channelId?: string | null
+    parentAuthorFid?: number | null
+    embeds?: NullableJsonNullValueInput | InputJsonValue
+    postHash?: string | null
     status?: $Enums.PostStatus
+    scheduledAt?: Date | string | null
+    publishedAt?: Date | string | null
+    qstashMessageId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
@@ -17195,20 +17427,34 @@ export namespace Prisma {
 
   export type PostUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: StringFieldUpdateOperationsInput | string
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentAuthorFid?: NullableIntFieldUpdateOperationsInput | number | null
+    embeds?: NullableJsonNullValueInput | InputJsonValue
+    postHash?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: StringFieldUpdateOperationsInput | string
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentAuthorFid?: NullableIntFieldUpdateOperationsInput | number | null
+    embeds?: NullableJsonNullValueInput | InputJsonValue
+    postHash?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -18445,6 +18691,73 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type EnumPostStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostStatusFilter<$PrismaModel> | $Enums.PostStatus
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -18456,35 +18769,50 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type EnumPostStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumPostStatusFilter<$PrismaModel> | $Enums.PostStatus
-  }
-
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
   }
 
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type PostCountOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    publishDate?: SortOrder
+    signerUuid?: SortOrder
+    text?: SortOrder
+    parent?: SortOrder
+    channelId?: SortOrder
+    parentAuthorFid?: SortOrder
+    embeds?: SortOrder
+    postHash?: SortOrder
     status?: SortOrder
+    scheduledAt?: SortOrder
+    publishedAt?: SortOrder
+    qstashMessageId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
   }
 
+  export type PostAvgOrderByAggregateInput = {
+    parentAuthorFid?: SortOrder
+  }
+
   export type PostMaxOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    publishDate?: SortOrder
+    signerUuid?: SortOrder
+    text?: SortOrder
+    parent?: SortOrder
+    channelId?: SortOrder
+    parentAuthorFid?: SortOrder
+    postHash?: SortOrder
     status?: SortOrder
+    scheduledAt?: SortOrder
+    publishedAt?: SortOrder
+    qstashMessageId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
@@ -18492,13 +18820,23 @@ export namespace Prisma {
 
   export type PostMinOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    publishDate?: SortOrder
+    signerUuid?: SortOrder
+    text?: SortOrder
+    parent?: SortOrder
+    channelId?: SortOrder
+    parentAuthorFid?: SortOrder
+    postHash?: SortOrder
     status?: SortOrder
+    scheduledAt?: SortOrder
+    publishedAt?: SortOrder
+    qstashMessageId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
+  }
+
+  export type PostSumOrderByAggregateInput = {
+    parentAuthorFid?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -18519,6 +18857,90 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type EnumPostStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostStatusWithAggregatesFilter<$PrismaModel> | $Enums.PostStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPostStatusFilter<$PrismaModel>
+    _max?: NestedEnumPostStatusFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -18533,16 +18955,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type EnumPostStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumPostStatusWithAggregatesFilter<$PrismaModel> | $Enums.PostStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPostStatusFilter<$PrismaModel>
-    _max?: NestedEnumPostStatusFilter<$PrismaModel>
-  }
-
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -18554,35 +18966,9 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type BoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type EnumUserRoleFilter<$PrismaModel = never> = {
@@ -18649,11 +19035,6 @@ export namespace Prisma {
     every?: SecurityEventWhereInput
     some?: SecurityEventWhereInput
     none?: SecurityEventWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type PostOrderByRelationAggregateInput = {
@@ -18800,44 +19181,12 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -19316,17 +19665,6 @@ export namespace Prisma {
     _max?: NestedEnumParticipationStatusFilter<$PrismaModel>
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type EnumPaymentStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
     in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
@@ -19398,22 +19736,6 @@ export namespace Prisma {
     amount?: SortOrder
     blockNumber?: SortOrder
     gasUsed?: SortOrder
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -19600,12 +19922,28 @@ export namespace Prisma {
     set?: string
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type EnumPostStatusFieldUpdateOperationsInput = {
     set?: $Enums.PostStatus
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type UserUpdateOneRequiredWithoutPostsNestedInput = {
@@ -19750,16 +20088,8 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -20326,14 +20656,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type EnumPaymentStatusFieldUpdateOperationsInput = {
     set?: $Enums.PaymentStatus
   }
@@ -20418,6 +20740,49 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumPostStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostStatusFilter<$PrismaModel> | $Enums.PostStatus
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -20427,13 +20792,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedEnumPostStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumPostStatusFilter<$PrismaModel> | $Enums.PostStatus
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -20464,6 +20822,97 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedEnumPostStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostStatusWithAggregatesFilter<$PrismaModel> | $Enums.PostStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPostStatusFilter<$PrismaModel>
+    _max?: NestedEnumPostStatusFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -20478,44 +20927,9 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedEnumPostStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumPostStatusWithAggregatesFilter<$PrismaModel> | $Enums.PostStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPostStatusFilter<$PrismaModel>
-    _max?: NestedEnumPostStatusFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedBoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
@@ -20557,54 +20971,12 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -20769,33 +21141,6 @@ export namespace Prisma {
     in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -20996,20 +21341,34 @@ export namespace Prisma {
 
   export type PostCreateWithoutUserInput = {
     id?: string
-    title: string
-    content: string
-    publishDate: Date | string
+    signerUuid: string
+    text?: string | null
+    parent?: string | null
+    channelId?: string | null
+    parentAuthorFid?: number | null
+    embeds?: NullableJsonNullValueInput | InputJsonValue
+    postHash?: string | null
     status?: $Enums.PostStatus
+    scheduledAt?: Date | string | null
+    publishedAt?: Date | string | null
+    qstashMessageId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type PostUncheckedCreateWithoutUserInput = {
     id?: string
-    title: string
-    content: string
-    publishDate: Date | string
+    signerUuid: string
+    text?: string | null
+    parent?: string | null
+    channelId?: string | null
+    parentAuthorFid?: number | null
+    embeds?: NullableJsonNullValueInput | InputJsonValue
+    postHash?: string | null
     status?: $Enums.PostStatus
+    scheduledAt?: Date | string | null
+    publishedAt?: Date | string | null
+    qstashMessageId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21373,10 +21732,17 @@ export namespace Prisma {
     OR?: PostScalarWhereInput[]
     NOT?: PostScalarWhereInput | PostScalarWhereInput[]
     id?: StringFilter<"Post"> | string
-    title?: StringFilter<"Post"> | string
-    content?: StringFilter<"Post"> | string
-    publishDate?: DateTimeFilter<"Post"> | Date | string
+    signerUuid?: StringFilter<"Post"> | string
+    text?: StringNullableFilter<"Post"> | string | null
+    parent?: StringNullableFilter<"Post"> | string | null
+    channelId?: StringNullableFilter<"Post"> | string | null
+    parentAuthorFid?: IntNullableFilter<"Post"> | number | null
+    embeds?: JsonNullableFilter<"Post">
+    postHash?: StringNullableFilter<"Post"> | string | null
     status?: EnumPostStatusFilter<"Post"> | $Enums.PostStatus
+    scheduledAt?: DateTimeNullableFilter<"Post"> | Date | string | null
+    publishedAt?: DateTimeNullableFilter<"Post"> | Date | string | null
+    qstashMessageId?: StringNullableFilter<"Post"> | string | null
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
     userId?: StringFilter<"Post"> | string
@@ -23584,10 +23950,17 @@ export namespace Prisma {
 
   export type PostCreateManyUserInput = {
     id?: string
-    title: string
-    content: string
-    publishDate: Date | string
+    signerUuid: string
+    text?: string | null
+    parent?: string | null
+    channelId?: string | null
+    parentAuthorFid?: number | null
+    embeds?: NullableJsonNullValueInput | InputJsonValue
+    postHash?: string | null
     status?: $Enums.PostStatus
+    scheduledAt?: Date | string | null
+    publishedAt?: Date | string | null
+    qstashMessageId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23714,30 +24087,51 @@ export namespace Prisma {
 
   export type PostUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: StringFieldUpdateOperationsInput | string
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentAuthorFid?: NullableIntFieldUpdateOperationsInput | number | null
+    embeds?: NullableJsonNullValueInput | InputJsonValue
+    postHash?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: StringFieldUpdateOperationsInput | string
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentAuthorFid?: NullableIntFieldUpdateOperationsInput | number | null
+    embeds?: NullableJsonNullValueInput | InputJsonValue
+    postHash?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    signerUuid?: StringFieldUpdateOperationsInput | string
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    parent?: NullableStringFieldUpdateOperationsInput | string | null
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+    parentAuthorFid?: NullableIntFieldUpdateOperationsInput | number | null
+    embeds?: NullableJsonNullValueInput | InputJsonValue
+    postHash?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

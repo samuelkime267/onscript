@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import { PostSchemaDataType } from "@/features/cast/schemas/cast.schema";
 import { scheduleCastPostSchema } from "@/features/cast/schemas/scheduleCastPost.schema";
 import db from "@/lib/db";
+import { qstashClient } from "@/lib/qstash";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -58,50 +59,29 @@ export async function POST(request: Request) {
       scheduledAt,
     };
 
-    const { NEYNAR_API_URL, NEYNAR_API_KEY } = process.env;
-
-    if (!NEYNAR_API_URL || !NEYNAR_API_KEY) {
-      return NextResponse.json({ error: "Variables not set" }, { status: 400 });
-    }
-
-    const url = `${NEYNAR_API_URL}/v2/farcaster/cast/`;
-    const options = {
-      method: "POST",
-      headers: {
-        "x-api-key": NEYNAR_API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        signer_uuid: signerUuid,
-        text,
-        embeds,
-        parent,
-        channel_id: channelId,
-      }),
-    };
-
-    const res = await fetch(url, options);
-
-    if (!res.ok) {
-      const data = await res.json();
-      return NextResponse.json({ error: data.message }, { status: 400 });
-    }
-
-    const {
-      cast: { hash },
-    } = await res.json();
-
     const data = await db.post.create({
+      data: postData,
+    });
+
+    const res = await qstashClient.publishJSON({
+      body: data,
+      url: "http://localhost:3000/api/cast/publish/qstash",
+      notBefore: Math.floor(scheduledAt.getTime() / 1000),
+      retries: 3,
+    });
+    const { messageId } = res;
+
+    await db.post.update({
+      where: {
+        id: data.id,
+      },
       data: {
-        ...postData,
-        postHash: hash,
-        status: "PUBLISHED",
-        publishedAt: new Date(),
+        qstashMessageId: messageId,
       },
     });
 
     return NextResponse.json(
-      { message: "Post scheduled successfully", postHash: data.postHash },
+      { message: "Post scheduled successfully" },
       { status: 200 },
     );
   } catch (error) {

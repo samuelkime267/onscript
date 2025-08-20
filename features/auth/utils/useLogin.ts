@@ -73,6 +73,17 @@ export default function useLogin() {
       const response = await fetch(`/api/user?address=${address}`);
       if (response.ok) {
         const nonce = generateNonce();
+
+        // const loginResponse = await signIn("credentials", {
+        //   ...{
+        //     message: "this is a random message",
+        //     signature: "this is a random signature",
+        //     nonce,
+        //     address,
+        //   },
+        //   redirectTo: defaultRedirectUrl,
+        // });
+
         const result = await signInViaFarcaster({ nonce });
 
         if (result) {
