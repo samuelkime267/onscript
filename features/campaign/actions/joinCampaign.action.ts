@@ -37,6 +37,7 @@ export default async function joinCampaignAction(data: unknown) {
       story_telling_vibes,
       twitter,
       web3_content_experience,
+      following_team,
     } = parsedData.data;
     const { fid, username } = user;
 
@@ -67,6 +68,7 @@ export default async function joinCampaignAction(data: unknown) {
           | "KINDA",
         xHandle: twitter,
         isApproved: false,
+        following_team: following_team === "yes",
       },
     });
 

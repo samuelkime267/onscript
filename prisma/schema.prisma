@@ -159,6 +159,7 @@ model LaunchCampaignParticipants {
   storyTellingVibe String
   userId           String          @unique
   isApproved       Boolean?
+  following_team   Boolean         @default(false)
 }
 
 enum web3ContentWork {
